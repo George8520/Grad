@@ -27,7 +27,6 @@ import 'package:signup1/widgets/messages.dart';
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
