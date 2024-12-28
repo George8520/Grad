@@ -8,8 +8,8 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/vacman.png',
-      width: 86,
-      height: 87,
+      width: Responsive.customWidth(context, 0.23),
+      height: Responsive.customHeight(context, 0.23),
     );
   }
 }
@@ -33,8 +33,8 @@ class vaccum_ready extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/vaccum_ready.png',
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.height * 0.3,
+      width: Responsive.customWidth(context, 0.15),
+      height: Responsive.customHeight(context, 0.15),
     );
   }
 }
@@ -45,8 +45,8 @@ class battery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/battery.png',
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.height * 0.3,
+      width: Responsive.customWidth(context, 0.1),
+      height: Responsive.customHeight(context, 0.1),
     );
   }
 }

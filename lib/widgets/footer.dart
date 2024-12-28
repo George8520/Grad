@@ -3,13 +3,14 @@ import 'package:signup1/screens/connected.dart';
 import 'package:signup1/screens/controls.dart';
 import 'package:signup1/screens/settings.dart'; // Example screen imports
 import 'package:signup1/shared/color.dart';
+import 'package:signup1/shared/responsive.dart';
 
 class FooterWidget extends StatelessWidget {
   final VoidCallback onHomePressed;
   final VoidCallback onSearchPressed;
   final VoidCallback onSettingsPressed;
   final int selectedIndex;
-  final double height; // Add adjustable height parameter
+  final double? height; // Add adjustable height parameter
 
   const FooterWidget({
     Key? key,
@@ -17,13 +18,13 @@ class FooterWidget extends StatelessWidget {
     required this.onSearchPressed,
     required this.onSettingsPressed,
     required this.selectedIndex,
-    this.height = 70 // Default footer height
+    this.height  // Default footer height
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height, // Make footer height adjustable
+      height: Responsive.customHeight(context, 0.08), // Make footer height adjustable
       child: Stack(
         children: [
           // Footer background

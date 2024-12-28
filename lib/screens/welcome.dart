@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
                           fontSize: Responsive.responsiveFontSize(context, 18.0), // Responsive font size
                         ),
                       ),
-                      const SizedBox(height: 20),
+                       SizedBox(height: Responsive.customHeight(context, 0.1)),
                     ],
                   ),
 

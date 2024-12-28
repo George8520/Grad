@@ -19,15 +19,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<Map<String, String>> onboardingContent = [
     {
       'title': 'Install vacman app to start setup',
-      'description': 'Have your robot and charging station ready. Know your Wi-Fi network name and Wi-Fi network password.',
+      'description': 'Have your robot and charging station ready. Know your Wi-Fi and password.',
     },
     {
       'title': 'Turn on Bluetooth',
-      'description': 'The app uses Bluetooth to set up and connect to your robot to your device.',
+      'description': 'The app uses Bluetooth to set up and connect your robot to your device.',
     },
     {
       'title': 'Connect Vacman to Your Wi-Fi',
-      'description': 'Press “Change Wi-Fi network” and choose the network you would like to connect to from the menu.',
+      'description': 'The app uses Wifi to set up and connect your robot to your device.',
     },
     {
       'title': 'You are safe!',
@@ -91,6 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     SizedBox(height: Responsive.height(context) * 0.08), // Adjusted height based on screen size
                                     Text(
+                                      overflow: TextOverflow.ellipsis,
                                       onboardingContent[index]['title']!,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(

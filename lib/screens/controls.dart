@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/shared/color.dart';
+import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
-import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
 
@@ -18,15 +18,37 @@ class ControlsPage extends StatefulWidget {
 
 class _ControlsPageState extends State<ControlsPage> {
   // Variable to track the toggled button
-  int _toggledButtonIndex = -1; // -1 means no button is toggled
 
-  // Handle button press and toggle state
-  void _handleButtonPress(int index) {
+  int _vacuumSweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
+  int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
+  int _AutoIndex = -1;
+  // Handle button press and toggle state for Vacuum/Sweep
+
+  void _handleVacuumSweepPress(int index) {
     setState(() {
-      if (_toggledButtonIndex == index) {
-        _toggledButtonIndex = -1; // Deselect the button if it's already toggled
+      if (_vacuumSweepIndex == index) {
+        _vacuumSweepIndex = -1; // Deselect the button if already selected
       } else {
-        _toggledButtonIndex = index; // Set the selected button
+        _vacuumSweepIndex = index; // Select the pressed button
+      }
+    });
+  }
+  void _handleautoPress(int index) {
+    setState(() {
+      if (_AutoIndex == index) {
+        _AutoIndex = -1; // Deselect the button if already selected
+      } else {
+        _AutoIndex = index; // Select the pressed button
+      }
+    });
+  }
+  // Handle button press and toggle state for Temperature/Automatic
+  void _handleTemperatureAutoPress(int index) {
+    setState(() {
+      if (_tempIndex == index) {
+        _tempIndex = -1; // Deselect the button if already selected
+      } else {
+        _tempIndex = index; // Select the pressed button
       }
     });
   }
@@ -40,13 +62,13 @@ class _ControlsPageState extends State<ControlsPage> {
         children: [
           Column(
             children: [
-              SizedBox(height: 150,),  // Directional Buttons
+              SizedBox(height: Responsive.customHeight(context, 0.1),),  // Directional Buttons
               DirectionControls(),
               Spacer(),
               // Container that will extend under footer
               Container(
-                width: 500,
-                height: 400,
+                width: Responsive.customWidth(context, 1),
+                height:  Responsive.customHeight(context, 0.4),
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(32),
@@ -55,28 +77,26 @@ class _ControlsPageState extends State<ControlsPage> {
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/vacuum.png',
-                                onPressed: () => _handleButtonPress(0),
-                                isToggled: _toggledButtonIndex == 0,
-                                width: 100,
-                                height: 70,
+                                onPressed: () => _handleVacuumSweepPress(0),
+                                backgroundColor: _vacuumSweepIndex == 0 ? AppColors.green_color : AppColors.primaryColor,
+                                width:  Responsive.customWidth(context, 0.25),
+                                height:  Responsive.customHeight(context, 0.08),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Vacuum',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),
+                            Text(
+                              'Vacuum',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -84,24 +104,21 @@ class _ControlsPageState extends State<ControlsPage> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/sweep.png',
-                                onPressed: () => _handleButtonPress(1),
-                                isToggled: _toggledButtonIndex == 1,
-                                width: 100,
-                                height: 70,
+                                onPressed: () => _handleVacuumSweepPress(1),
+                                backgroundColor: _vacuumSweepIndex == 1 ? AppColors.green_color : AppColors.primaryColor,
+                                width:  Responsive.customWidth(context, 0.25),
+                                height:  Responsive.customHeight(context, 0.08),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Sweep',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),
+                            Text(
+                              'Sweep',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -109,24 +126,21 @@ class _ControlsPageState extends State<ControlsPage> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/temperature.png',
-                                onPressed: () => _handleButtonPress(2),
-                                isToggled: _toggledButtonIndex == 2,
-                                width: 100,
-                                height: 70,
+                                onPressed: () => _handleTemperatureAutoPress(2),
+                                backgroundColor: _tempIndex == 2 ? AppColors.orange_color : AppColors.primaryColor,
+                                width:  Responsive.customWidth(context, 0.25),
+                                height:  Responsive.customHeight(context, 0.08),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Temperature',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),
+                            Text(
+                              'Temperature',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -134,24 +148,21 @@ class _ControlsPageState extends State<ControlsPage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: CustomButton(
                         imageUrl: 'assets/images/automatic.png',
-                        onPressed: () => _handleButtonPress(3),
-                        isToggled: _toggledButtonIndex == 3,
-                        height: 80,
-                        width: 500,
+                        onPressed: () => _handleautoPress(3),
+                        backgroundColor: _AutoIndex == 3 ? AppColors.green_color : AppColors.primaryColor,
+                        width:  Responsive.customWidth(context, 0.8),
+                        height:  Responsive.customHeight(context, 0.08),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Automatic control',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
+                    Text(
+                      'Automatic control',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
                       ),
                     ),
                   ],
@@ -176,42 +187,108 @@ class _ControlsPageState extends State<ControlsPage> {
   }
 }
 
-class DirectionControls extends StatelessWidget {
+class DirectionControls extends StatefulWidget {
+  @override
+  _DirectionControlsState createState() => _DirectionControlsState();
+}
+
+class _DirectionControlsState extends State<DirectionControls> {
+  // Track button colors
+  Color _upButtonColor = AppColors.primaryColor;
+  Color _downButtonColor = AppColors.primaryColor;
+  Color _leftButtonColor = AppColors.primaryColor;
+  Color _rightButtonColor = AppColors.primaryColor;
+
+  // Handle button press to change color to green
+  void _handleButtonPress(String direction) {
+    setState(() {
+      if (direction == 'up') {
+        _upButtonColor = AppColors.green_color;
+      } else if (direction == 'down') {
+        _downButtonColor = AppColors.green_color;
+      } else if (direction == 'left') {
+        _leftButtonColor = AppColors.green_color;
+      } else if (direction == 'right') {
+        _rightButtonColor = AppColors.green_color;
+      }
+    });
+  }
+
+  // Handle button release to reset color
+  void _handleButtonRelease(String direction) {
+    setState(() {
+      if (direction == 'up') {
+        _upButtonColor = AppColors.primaryColor;
+      } else if (direction == 'down') {
+        _downButtonColor = AppColors.primaryColor;
+      } else if (direction == 'left') {
+        _leftButtonColor = AppColors.primaryColor;
+      } else if (direction == 'right') {
+        _rightButtonColor = AppColors.primaryColor;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomButton(
-          icon: Icons.arrow_upward_sharp,
-          height: 80,
-          width: 80,
-          onPressed: () {},
+        GestureDetector(
+          onTapDown: (_) => _handleButtonPress('up'),
+          onTapUp: (_) => _handleButtonRelease('up'),
+          onTapCancel: () => _handleButtonRelease('up'),
+          child: CustomButton(
+            icon: Icons.arrow_upward_sharp,
+            height: 80,
+            width: 80,
+            backgroundColor: _upButtonColor,
+            onPressed: () {},
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton(
-              icon: Icons.arrow_back_sharp,
-              height: 80,
-              width: 80,
-              onPressed: () {},
+            GestureDetector(
+              onTapDown: (_) => _handleButtonPress('left'),
+              onTapUp: (_) => _handleButtonRelease('left'),
+              onTapCancel: () => _handleButtonRelease('left'),
+              child: CustomButton(
+                icon: Icons.arrow_back_sharp,
+                height: 80,
+                width: 80,
+                backgroundColor: _leftButtonColor,
+                onPressed: () {},
+              ),
             ),
             SizedBox(width: 80),
-            CustomButton(
-              icon: Icons.arrow_forward_sharp,
-              height: 80,
-              width: 80,
-              onPressed: () {},
+            GestureDetector(
+              onTapDown: (_) => _handleButtonPress('right'),
+              onTapUp: (_) => _handleButtonRelease('right'),
+              onTapCancel: () => _handleButtonRelease('right'),
+              child: CustomButton(
+                icon: Icons.arrow_forward_sharp,
+                height: 80,
+                width: 80,
+                backgroundColor: _rightButtonColor,
+                onPressed: () {},
+              ),
             ),
           ],
         ),
-        CustomButton(
-          icon: Icons.arrow_downward_rounded,
-          height: 80,
-          width: 80,
-          onPressed: () {},
+        GestureDetector(
+          onTapDown: (_) => _handleButtonPress('down'),
+          onTapUp: (_) => _handleButtonRelease('down'),
+          onTapCancel: () => _handleButtonRelease('down'),
+          child: CustomButton(
+            icon: Icons.arrow_downward_rounded,
+            height: 80,
+            width: 80,
+            backgroundColor: _downButtonColor,
+            onPressed: () {},
+          ),
         ),
       ],
     );
   }
 }
+

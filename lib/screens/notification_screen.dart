@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
-import 'package:signup1/shared/style.dart';
+import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
-import 'package:signup1/widgets/assets_chooser.dart';
-import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
-import 'package:signup1/widgets/text_field.dart';
 import '../widgets/messages.dart';
 
 class Notifiaction_screen extends StatefulWidget {
@@ -41,7 +37,7 @@ class _Notifiaction_screenState extends State<Notifiaction_screen> {
             ),
             child: Column(
               children: [
-                SizedBox(height: 100),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -52,7 +48,7 @@ class _Notifiaction_screenState extends State<Notifiaction_screen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 80),
+               // SizedBox(height: 80),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

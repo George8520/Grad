@@ -1,90 +1,74 @@
 import 'package:flutter/material.dart';
 import '../shared/color.dart';
+import '../shared/responsive.dart';
 
-class CustomButton extends StatefulWidget {
-  final String? text; // Optional text
-  final IconData? icon; // Optional icon
-  final String? imageUrl; // Optional image URL
+class CustomButton extends StatelessWidget {
+  final String? text;
+  final IconData? icon;
+  final String? imageUrl;
   final VoidCallback onPressed;
   final Color backgroundColor;
-  final Color? pressedColor; // Optional pressed color
-  final double height;
-  final double width; // Add a width parameter
+  final Color? pressedColor;
+  final double? height; // Nullable for responsiveness
+  final double? width;
   final double borderRadius;
-  final bool isToggled; // Whether the color should toggle when pressed
 
   const CustomButton({
     Key? key,
-    this.text, // Allow text to be null
-    this.icon, // Allow icon to be null
-    this.imageUrl, // Allow image URL to be null
+    this.text,
+    this.icon,
+    this.imageUrl,
     required this.onPressed,
-    this.backgroundColor = AppColors.primaryColor, // Default background color
-    this.pressedColor, // Optional pressed color
-    this.height = 50.0,
-    this.width = 350.0, // Default width set here
+    this.backgroundColor = AppColors.primaryColor,
+    this.pressedColor,
+    this.height,
+    this.width,
     this.borderRadius = 32.0,
-    this.isToggled = false, // Default is false, no toggle behavior
   }) : assert(
-  text != null || icon != null || imageUrl != null, // Ensure at least one is provided
+  text != null || icon != null || imageUrl != null,
   'Either text, icon, or imageUrl must be provided',
   ),
         super(key: key);
 
   @override
-  _CustomButtonState createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton> {
-  bool _isPressed = false; // Track whether the button is pressed
-
-  void _handlePressed() {
-    setState(() {
-      if (widget.isToggled) {
-        _isPressed = !_isPressed; // Toggle the pressed state if isToggled is true
-      }
-    });
-    widget.onPressed(); // Call the onPressed callback
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final double buttonHeight = height ?? Responsive.customHeight(context, 0.06);
+    final double buttonWidth = width ?? Responsive.customWidth(context, 0.8);
+
     return SizedBox(
-      width: widget.width, // Use the width parameter here
-      height: widget.height,
+      width: buttonWidth,
+      height: buttonHeight,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: _isPressed && widget.isToggled
-              ? widget.pressedColor ?? AppColors.green_color
-              : widget.backgroundColor, // Use pressedColor if toggled
+          backgroundColor: backgroundColor, // Static background color
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onPressed: _handlePressed,
+        onPressed: onPressed,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Check for imageUrl and display Image if it exists
-            if (widget.imageUrl != null) ...[
+            if (imageUrl != null) ...[
               Image.asset(
-                widget.imageUrl!, // Assuming it's a local asset, can change to Image.network for network images
-                height: 40, // You can adjust the size
+                imageUrl!,
+                height: 40,
                 width: 40,
+                errorBuilder: (context, error, stackTrace) =>
+                    Icon(Icons.error, size: 40),
               ),
-              if (widget.text != null || widget.icon != null) SizedBox(width: 8), // Spacing if image and text/icon exist
+              if (text != null || icon != null) SizedBox(width: 8),
             ],
-            // Display icon if available
-            if (widget.icon != null) ...[
-              Icon(widget.icon, color: Colors.white, size: 22),
-              if (widget.text != null) SizedBox(width: 8), // Spacing if both exist
+            if (icon != null) ...[
+              Icon(icon, color: Colors.white, size: 22),
+              if (text != null) SizedBox(width: 8),
             ],
-            // Display text if available
-            if (widget.text != null)
+            if (text != null)
               Text(
-                widget.text!,
-                style: const TextStyle(
-                  fontSize: 18,
+                text!,
+                style: TextStyle(
+                  fontSize: Responsive.responsiveFontSize(context, 18),
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),

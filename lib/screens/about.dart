@@ -17,7 +17,7 @@ class About extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 50),
+          SizedBox(height: Responsive.customHeight(context, 0.16)),
 
           // Using PrimaryColorContainer for the main content section
           Expanded(

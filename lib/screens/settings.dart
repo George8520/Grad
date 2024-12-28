@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:signup1/screens/about.dart';
 import 'package:signup1/screens/helpchat.dart';
 import 'package:signup1/screens/notification_screen.dart';
-import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
-import 'package:signup1/shared/style.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
-import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
-import 'package:signup1/widgets/text_field.dart';
-import '../widgets/messages.dart';
 
 class Settings_screen extends StatefulWidget {
   Settings_screen({Key? key}) : super(key: key);
@@ -27,14 +22,14 @@ class _Settings_screenState extends State<Settings_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background_color,
-      appBar: AppBarChooser(
+      appBar: const AppBarChooser(
         appBarType: 'CustomAppBar2',
         title: 'Settings',
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // Reduced padding for better layout
+        padding: const EdgeInsets.all(5.0), // Reduced padding for better layout
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/slogan.png"),
               opacity: .15,
@@ -43,26 +38,27 @@ class _Settings_screenState extends State<Settings_screen> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center, // Align the message to the left
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(height: 80,),
+            //  SizedBox(height: 80,),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(text: 'Notifications', onPressed: () { Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Notifiaction_screen()),);},),
-                  SizedBox(height: 100,)
+                  //SizedBox(height: 100,)
                 ],
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(text: 'Find vacman', onPressed: () {},),
-                  SizedBox(height: 100,)
+                  //SizedBox(height: 100,)
                 ],
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(text: 'Set warnings off', onPressed: () {},),
-                  SizedBox(height: 100,)
+                  //SizedBox(height: 100,)
                 ],
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +66,7 @@ class _Settings_screenState extends State<Settings_screen> {
                   CustomButton(text: 'Help', onPressed: () { Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Helpchat()),);},),
-                  SizedBox(height: 100,)
+                  //SizedBox(height: 100,)
                 ],
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +74,7 @@ class _Settings_screenState extends State<Settings_screen> {
                   CustomButton(text: 'About', onPressed: () { Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => About()),);},),
-                  SizedBox(height: 100,)
+                  //SizedBox(height: 100,)
                 ],
               ),
             ],

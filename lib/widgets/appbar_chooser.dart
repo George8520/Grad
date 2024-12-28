@@ -26,13 +26,13 @@ class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.white
+            color: Colors.black
           ),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: leftIcon ?? const Icon(Icons.arrow_back, color: Colors.white,size: 32,), // Default left icon if none is passed
+          icon: leftIcon ?? const Icon(Icons.arrow_back, color: Colors.black,size: 32,), // Default left icon if none is passed
           onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
         ),
       ),

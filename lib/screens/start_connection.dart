@@ -5,6 +5,7 @@ import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 
+import '../shared/responsive.dart';
 import '../widgets/rounded_header.dart';
 import 'notification_screen.dart';
 void main() {
@@ -48,14 +49,14 @@ appBar: AppBarChooser(
                 },
 
               ),
-            const SizedBox(height: 20),
+             SizedBox(height: Responsive.customHeight(context, 0.02)),
             Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                    SloganWidget(),
-                    const SizedBox(height: 20),
+                     SizedBox(height: Responsive.customHeight(context, 0.02)),
                     CustomButton(
                       text: 'Start connection',
                       onPressed: () {

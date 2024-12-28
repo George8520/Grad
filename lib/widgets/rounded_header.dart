@@ -15,8 +15,8 @@ class RoundedHeader extends StatelessWidget {
   final Widget? image2; // Option to add second image
   final Widget? rowText; // Option to add text next to the image
   final Widget? rowText2; // Option to add text next to the image
-  final double imageHeight;
-  final double imageWidth;
+  final double? imageHeight;
+  final double? imageWidth;
   final double textFontSize;
 
   const RoundedHeader({
@@ -33,8 +33,8 @@ class RoundedHeader extends StatelessWidget {
     this.rowText,
     this.image2,
     this.rowText2,
-    this.imageHeight = 80, // Default height for image
-    this.imageWidth = 100,  // Default width for image
+    this.imageHeight,  // Default height for image
+    this.imageWidth ,  // Default width for image
     this.textFontSize = 20, // Default font size for text
   }) : super(key: key);
 
@@ -45,7 +45,7 @@ class RoundedHeader extends StatelessWidget {
 
     // Increase the height if images are present
     if (image != null || image2 != null) {
-      height += 240; // Increase height for images
+      height += Responsive.customHeight(context, 0.2); // Increase height for images
     }
 
     return ClipRRect(
@@ -107,6 +107,7 @@ class RoundedHeader extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      SizedBox(width:Responsive.customWidth(context, 0.03)),
                       if (image2 != null)
                         SizedBox(
                           height: imageHeight,
@@ -114,7 +115,7 @@ class RoundedHeader extends StatelessWidget {
                           child: image2,
                         ),
                       if (rowText2 != null) ...[
-                        SizedBox(width: Responsive.responsivePadding(context, 10)),
+                        SizedBox(width: Responsive.responsivePadding(context, 20)),
                         Text(
                           (rowText2 as Text).data ?? '',
                           style: TextStyle(
