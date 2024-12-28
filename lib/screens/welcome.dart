@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                           fontSize: Responsive.responsiveFontSize(context, 30.0), // Responsive font size
                         ),
                       ),
-                      const SizedBox(height: 10),
+                       SizedBox(height: Responsive.customHeight(context, 0.05)),
                       Text(
                         'Say goodbye to the hassle of household chores! Our smart home cleaning robot combines advanced technology and powerful cleaning capabilities to keep your space spotless. With intelligent navigation and customizable modes, it adapts to your needs, ensuring every corner is thoroughly cleaned.',
                         style: AppStyles.mediumStyle.copyWith(

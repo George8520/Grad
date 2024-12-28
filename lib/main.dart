@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home:
+      SplashScreen()
             //ControlsPage()
             //Connected()
             // About()
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
             // Forgot_password()
             //Helpchat()
            // OnboardingScreen()
-            LoginScreen()
+           // LoginScreen()
            // Connected()
             //Set_new_password()
            // Forgot_password()
