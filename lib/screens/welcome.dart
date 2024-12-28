@@ -53,20 +53,23 @@ class WelcomeScreen extends StatelessWidget {
                   ),
 
                   // Positioned IconButton at the top-right of the container
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0), // Add padding to the top and right
-                      child: IconButton(
-                        onPressed: () {
-                                Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => OnboardingScreen()),);
-                            },
-                        icon: Icon(
-                          Icons.arrow_circle_right,
-                          size: 50,
-                          color: AppColors.whiteColor, // Adjust color as needed
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0), // Add padding to the top and right
+                        child: IconButton(
+                          onPressed: () {
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OnboardingScreen()),);
+                              },
+                          icon: Icon(
+                            Icons.arrow_circle_right,
+                            size: 50,
+                            color: AppColors.whiteColor, // Adjust color as needed
+                          ),
                         ),
                       ),
                     ),

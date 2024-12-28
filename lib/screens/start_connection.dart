@@ -4,7 +4,6 @@ import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
-
 import '../shared/responsive.dart';
 import '../widgets/rounded_header.dart';
 import 'notification_screen.dart';

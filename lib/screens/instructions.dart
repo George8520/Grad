@@ -18,7 +18,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   // List of onboarding content
   List<Map<String, String>> onboardingContent = [
     {
-      'title': 'Install vacman app to start setup',
+      'title': 'Install vacman app to \nstart setup',
       'description': 'Have your robot and charging station ready. Know your Wi-Fi and password.',
     },
     {
@@ -26,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       'description': 'The app uses Bluetooth to set up and connect your robot to your device.',
     },
     {
-      'title': 'Connect Vacman to Your Wi-Fi',
+      'title': 'Connect Vacman to Your \nWi-Fi',
       'description': 'The app uses Wifi to set up and connect your robot to your device.',
     },
     {

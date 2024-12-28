@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                 //const SizedBox(height: Responsive.customHeight(context, 0.01)),
                 CustomTextField(
                   hintText: "Email",
-                  obscureText: false,
+                  obscureText: false ,
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.01)),
           
@@ -75,6 +75,7 @@ class SignUpScreen extends StatelessWidget {
                 CustomTextField(
                   hintText: "Password",
                   obscureText: true,
+                  showHideButton: true,
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.01)),
           
@@ -90,6 +91,7 @@ class SignUpScreen extends StatelessWidget {
                 CustomTextField(
                   hintText: "Confirm Password",
                   obscureText: true,
+                  showHideButton: true,
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.08)),
           

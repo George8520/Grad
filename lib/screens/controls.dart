@@ -18,12 +18,12 @@ class ControlsPage extends StatefulWidget {
 
 class _ControlsPageState extends State<ControlsPage> {
   // Variable to track the toggled button
-
+  bool _isAutomaticMode = false; // Track if automatic mode is enabled
   int _vacuumSweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
   int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
-  int _AutoIndex = -1;
-  // Handle button press and toggle state for Vacuum/Sweep
+  int _AutoIndex = -1; // -1 means no button is toggled for auto
 
+  // Handle button press and toggle state for Vacuum/Sweep
   void _handleVacuumSweepPress(int index) {
     setState(() {
       if (_vacuumSweepIndex == index) {
@@ -33,15 +33,20 @@ class _ControlsPageState extends State<ControlsPage> {
       }
     });
   }
+
+  // Handle the automatic control button press
   void _handleautoPress(int index) {
     setState(() {
       if (_AutoIndex == index) {
-        _AutoIndex = -1; // Deselect the button if already selected
+        _AutoIndex = -1;
+        _isAutomaticMode = false; // Turn off automatic mode if already selected
       } else {
-        _AutoIndex = index; // Select the pressed button
+        _AutoIndex = index;
+        _isAutomaticMode = true; // Turn on automatic mode
       }
     });
   }
+
   // Handle button press and toggle state for Temperature/Automatic
   void _handleTemperatureAutoPress(int index) {
     setState(() {
@@ -62,13 +67,13 @@ class _ControlsPageState extends State<ControlsPage> {
         children: [
           Column(
             children: [
-              SizedBox(height: Responsive.customHeight(context, 0.1),),  // Directional Buttons
-              DirectionControls(),
+              SizedBox(height: Responsive.customHeight(context, 0.1)), // Directional Buttons
+              DirectionControls(isDisabled: _isAutomaticMode), // Pass the automatic mode state
               Spacer(),
               // Container that will extend under footer
               Container(
                 width: Responsive.customWidth(context, 1),
-                height:  Responsive.customHeight(context, 0.4),
+                height: Responsive.customHeight(context, 0.4),
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(32),
@@ -87,16 +92,16 @@ class _ControlsPageState extends State<ControlsPage> {
                                 imageUrl: 'assets/images/vacuum.png',
                                 onPressed: () => _handleVacuumSweepPress(0),
                                 backgroundColor: _vacuumSweepIndex == 0 ? AppColors.green_color : AppColors.primaryColor,
-                                width:  Responsive.customWidth(context, 0.25),
-                                height:  Responsive.customHeight(context, 0.08),
+                                width: Responsive.customWidth(context, 0.25),
+                                height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
                               'Vacuum',
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -109,16 +114,16 @@ class _ControlsPageState extends State<ControlsPage> {
                                 imageUrl: 'assets/images/sweep.png',
                                 onPressed: () => _handleVacuumSweepPress(1),
                                 backgroundColor: _vacuumSweepIndex == 1 ? AppColors.green_color : AppColors.primaryColor,
-                                width:  Responsive.customWidth(context, 0.25),
-                                height:  Responsive.customHeight(context, 0.08),
+                                width: Responsive.customWidth(context, 0.25),
+                                height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
                               'Sweep',
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -131,16 +136,16 @@ class _ControlsPageState extends State<ControlsPage> {
                                 imageUrl: 'assets/images/temperature.png',
                                 onPressed: () => _handleTemperatureAutoPress(2),
                                 backgroundColor: _tempIndex == 2 ? AppColors.orange_color : AppColors.primaryColor,
-                                width:  Responsive.customWidth(context, 0.25),
-                                height:  Responsive.customHeight(context, 0.08),
+                                width: Responsive.customWidth(context, 0.25),
+                                height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
                               'Temperature',
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -153,16 +158,16 @@ class _ControlsPageState extends State<ControlsPage> {
                         imageUrl: 'assets/images/automatic.png',
                         onPressed: () => _handleautoPress(3),
                         backgroundColor: _AutoIndex == 3 ? AppColors.green_color : AppColors.primaryColor,
-                        width:  Responsive.customWidth(context, 0.8),
-                        height:  Responsive.customHeight(context, 0.08),
+                        width: Responsive.customWidth(context, 0.8),
+                        height: Responsive.customHeight(context, 0.08),
                       ),
                     ),
                     Text(
                       'Automatic control',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -188,6 +193,10 @@ class _ControlsPageState extends State<ControlsPage> {
 }
 
 class DirectionControls extends StatefulWidget {
+  final bool isDisabled; // Add a parameter to control the disabled state
+
+  DirectionControls({required this.isDisabled});
+
   @override
   _DirectionControlsState createState() => _DirectionControlsState();
 }
@@ -201,32 +210,36 @@ class _DirectionControlsState extends State<DirectionControls> {
 
   // Handle button press to change color to green
   void _handleButtonPress(String direction) {
-    setState(() {
-      if (direction == 'up') {
-        _upButtonColor = AppColors.green_color;
-      } else if (direction == 'down') {
-        _downButtonColor = AppColors.green_color;
-      } else if (direction == 'left') {
-        _leftButtonColor = AppColors.green_color;
-      } else if (direction == 'right') {
-        _rightButtonColor = AppColors.green_color;
-      }
-    });
+    if (!widget.isDisabled) { // Check if buttons are not disabled
+      setState(() {
+        if (direction == 'up') {
+          _upButtonColor = AppColors.green_color;
+        } else if (direction == 'down') {
+          _downButtonColor = AppColors.green_color;
+        } else if (direction == 'left') {
+          _leftButtonColor = AppColors.green_color;
+        } else if (direction == 'right') {
+          _rightButtonColor = AppColors.green_color;
+        }
+      });
+    }
   }
 
   // Handle button release to reset color
   void _handleButtonRelease(String direction) {
-    setState(() {
-      if (direction == 'up') {
-        _upButtonColor = AppColors.primaryColor;
-      } else if (direction == 'down') {
-        _downButtonColor = AppColors.primaryColor;
-      } else if (direction == 'left') {
-        _leftButtonColor = AppColors.primaryColor;
-      } else if (direction == 'right') {
-        _rightButtonColor = AppColors.primaryColor;
-      }
-    });
+    if (!widget.isDisabled) { // Check if buttons are not disabled
+      setState(() {
+        if (direction == 'up') {
+          _upButtonColor = AppColors.primaryColor;
+        } else if (direction == 'down') {
+          _downButtonColor = AppColors.primaryColor;
+        } else if (direction == 'left') {
+          _leftButtonColor = AppColors.primaryColor;
+        } else if (direction == 'right') {
+          _rightButtonColor = AppColors.primaryColor;
+        }
+      });
+    }
   }
 
   @override
@@ -241,7 +254,7 @@ class _DirectionControlsState extends State<DirectionControls> {
             icon: Icons.arrow_upward_sharp,
             height: 80,
             width: 80,
-            backgroundColor: _upButtonColor,
+            backgroundColor: widget.isDisabled ? Colors.grey : _upButtonColor,
             onPressed: () {},
           ),
         ),
@@ -256,7 +269,7 @@ class _DirectionControlsState extends State<DirectionControls> {
                 icon: Icons.arrow_back_sharp,
                 height: 80,
                 width: 80,
-                backgroundColor: _leftButtonColor,
+                backgroundColor: widget.isDisabled ? Colors.grey : _leftButtonColor,
                 onPressed: () {},
               ),
             ),
@@ -269,7 +282,7 @@ class _DirectionControlsState extends State<DirectionControls> {
                 icon: Icons.arrow_forward_sharp,
                 height: 80,
                 width: 80,
-                backgroundColor: _rightButtonColor,
+                backgroundColor: widget.isDisabled ? Colors.grey : _rightButtonColor,
                 onPressed: () {},
               ),
             ),
@@ -283,7 +296,7 @@ class _DirectionControlsState extends State<DirectionControls> {
             icon: Icons.arrow_downward_rounded,
             height: 80,
             width: 80,
-            backgroundColor: _downButtonColor,
+            backgroundColor: widget.isDisabled ? Colors.grey : _downButtonColor,
             onPressed: () {},
           ),
         ),
@@ -291,4 +304,3 @@ class _DirectionControlsState extends State<DirectionControls> {
     );
   }
 }
-
