@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/notification_screen.dart';
+import 'package:signup1/screens/start_connection.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/rounded_header.dart';
 import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart'; // Import the footer widget
+import '../widgets/alerts.dart';
 import '../widgets/assets_chooser.dart';
 
 
@@ -13,6 +15,26 @@ class Connected extends StatefulWidget {
   @override
   _ConnectedState createState() => _ConnectedState();
 }
+
+
+void _handleconnection(BuildContext context) {
+  Alert.showConfirmationDialog(
+    context: context,
+    title: 'Disconnection',
+    content: 'Are you sure you want to Disconnect?',
+    onYes: () {
+      // Perform logout action
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Start_connection()),
+      );
+    },
+    onNo: () {
+      // No action needed, just dismiss the dialog
+    },
+  );
+}
+
 
 class _ConnectedState extends State<Connected> {
   int selectedIndex = 1; // Default to Home icon
@@ -60,6 +82,7 @@ class _ConnectedState extends State<Connected> {
                   CustomButton(
                     text: 'Connected',
                     onPressed: () {
+                      _handleconnection(context);
                       // Add connection logic here
                     },
                   ),
