@@ -54,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   // Positioned IconButton at the top-right of the container
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(18.0),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(

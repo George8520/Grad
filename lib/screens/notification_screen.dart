@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/responsive.dart';
@@ -7,13 +6,15 @@ import 'package:signup1/widgets/footer.dart';
 import '../widgets/messages.dart';
 
 class Notifiaction_screen extends StatefulWidget {
-  Notifiaction_screen({Key? key}) : super(key: key);
+  final bool hideFooter;
+
+  Notifiaction_screen({Key? key, required this.hideFooter}) : super(key: key);
 
   @override
-  _Notifiaction_screenState createState() => _Notifiaction_screenState();
+  _Notifiaction_ScreenState createState() => _Notifiaction_ScreenState();
 }
 
-class _Notifiaction_screenState extends State<Notifiaction_screen> {
+class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
   int selectedIndex = 2; // Default selected index
 
   @override
@@ -26,7 +27,7 @@ class _Notifiaction_screenState extends State<Notifiaction_screen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0), // Reduced padding for better layout
-        child: SingleChildScrollView( // Make the entire body scrollable
+        child: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -48,7 +49,6 @@ class _Notifiaction_screenState extends State<Notifiaction_screen> {
                     ),
                   ],
                 ),
-               // SizedBox(height: 80),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -66,7 +66,9 @@ class _Notifiaction_screenState extends State<Notifiaction_screen> {
           ),
         ),
       ),
-      bottomNavigationBar: FooterWidget(
+      bottomNavigationBar: widget.hideFooter
+          ? null
+          : FooterWidget(
         onHomePressed: () {
           setState(() {
             selectedIndex = 1;

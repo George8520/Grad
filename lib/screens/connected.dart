@@ -36,7 +36,7 @@ class _ConnectedState extends State<Connected> {
             icon: Icons.notifications,
             onPressed: () { Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Notifiaction_screen()),);},
+              MaterialPageRoute(builder: (context) => Notifiaction_screen(hideFooter:false)),);},
             greetingStyle: TextStyle(
               color: Colors.white,
               fontSize: Responsive.responsiveFontSize(context, 32), // Responsive greeting font size

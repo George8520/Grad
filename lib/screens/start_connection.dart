@@ -44,7 +44,7 @@ appBar: AppBarChooser(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Notifiaction_screen()),);
+                    MaterialPageRoute(builder: (context) => Notifiaction_screen(hideFooter:true)),);
                 },
 
               ),

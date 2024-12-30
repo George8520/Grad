@@ -45,7 +45,7 @@ class _Settings_screenState extends State<Settings_screen> {
                 children: [
                   CustomButton(text: 'Notifications', onPressed: () { Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Notifiaction_screen()),);},),
+                    MaterialPageRoute(builder: (context) => Notifiaction_screen(hideFooter: false,)),);},),
                   //SizedBox(height: 100,)
                 ],
               ),

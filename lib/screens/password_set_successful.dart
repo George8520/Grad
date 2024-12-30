@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signup1/screens/login.dart';
 import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
@@ -67,7 +68,7 @@ class Set_Successful extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const WelcomeScreen()),);                    },
+                          MaterialPageRoute(builder: (context) =>  LoginScreen()),);                    },
                     ),
                   ],
                 ),

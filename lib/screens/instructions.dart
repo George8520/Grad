@@ -83,35 +83,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(horizontal: Responsive.responsivePadding(context, 24.0)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Wrap the title and description with a Column
-                                Column(
-                                  children: [
-                                    SizedBox(height: Responsive.height(context) * 0.08), // Adjusted height based on screen size
-                                    Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      onboardingContent[index]['title']!,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: Responsive.responsiveFontSize(context, 24),
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.whiteColor,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Wrap the title and description with a Column
+                                  Column(
+                                    children: [
+                                      SizedBox(height: Responsive.height(context) * 0.04), // Adjusted height based on screen size
+                                      Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        onboardingContent[index]['title']!,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: Responsive.responsiveFontSize(context, 24),
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.whiteColor,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: Responsive.height(context) * 0.02), // Adjusted spacing based on screen size
-                                    Text(
-                                      onboardingContent[index]['description']!,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: Responsive.responsiveFontSize(context, 16),
-                                        color: AppColors.whiteColor,
+                                      SizedBox(height: Responsive.height(context) * 0.02), // Adjusted spacing based on screen size
+                                      Text(
+                                        onboardingContent[index]['description']!,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: Responsive.responsiveFontSize(context, 16),
+                                          color: AppColors.whiteColor,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
