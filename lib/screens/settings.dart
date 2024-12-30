@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/about.dart';
+import 'package:signup1/screens/connected.dart';
 import 'package:signup1/screens/helpchat.dart';
 import 'package:signup1/screens/login.dart';
 import 'package:signup1/screens/notification_screen.dart';
@@ -27,7 +28,7 @@ class _Settings_screenState extends State<Settings_screen> {
       content: 'Are you sure you want to log out?',
       onYes: () {
         // Perform logout action
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen()),
         );
@@ -39,8 +40,20 @@ class _Settings_screenState extends State<Settings_screen> {
   }
 
   @override
+
+
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+          // Override back button to navigate to a specific page
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Connected()),  // Your target screen
+          );
+          return Future.value(false); // Prevent default back button action
+        },
+        child:
+        Scaffold(
       backgroundColor: AppColors.background_color,
       appBar: const AppBarChooser(
         appBarType: 'CustomAppBar2',
@@ -153,6 +166,6 @@ class _Settings_screenState extends State<Settings_screen> {
         },
         selectedIndex: selectedIndex,
       ),
-    );
+    ));
   }
 }

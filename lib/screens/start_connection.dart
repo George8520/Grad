@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/connected.dart';
+import 'package:signup1/screens/instructions.dart';
+import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
@@ -23,7 +25,16 @@ class MyApp extends StatelessWidget {
 class Start_connection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Override back button to navigate to a specific page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OnboardingScreen()),  // Your target screen
+      );
+      return Future.value(false); // Prevent default back button action
+    },
+    child: Scaffold(
       backgroundColor: AppColors.background_color,
 appBar: AppBarChooser(
   appBarType: 'CustomAppBarColor',
@@ -71,7 +82,7 @@ appBar: AppBarChooser(
           ],
         ),
       ),
-    );
+    ));
   }
 }
 

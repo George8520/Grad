@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/start_connection.dart';
+import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart'; // Import the responsive file
@@ -45,7 +46,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WelcomeScreen()),  // Your target screen
+          );
+          return Future.value(false); // Prevent default back button action
+    },
+    child: Scaffold(
       appBar: AppBarChooser(appBarType: 'CustomAppBar2', title: 'INSTRUCTIONS'),
       body: Container(  // This is the outer container with the background color
         color: AppColors.background_color,  // Set the desired background color here
@@ -161,7 +170,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 

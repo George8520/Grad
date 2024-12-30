@@ -11,7 +11,12 @@ class Set_Successful extends StatelessWidget {
   const Set_Successful({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Returning false prevents the back button from doing anything
+      return false;
+    },
+    child: Scaffold(
       backgroundColor: AppColors.background_color, // Light blue background
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,6 +82,6 @@ class Set_Successful extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

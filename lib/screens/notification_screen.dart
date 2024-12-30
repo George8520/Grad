@@ -27,15 +27,15 @@ class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0), // Reduced padding for better layout
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/slogan.png"),
-                opacity: .15,
-                fit: BoxFit.cover,
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/slogan.png"),
+              opacity: .15,
+              fit: BoxFit.cover,
             ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: Responsive.customHeight(context, 0.05)),
@@ -49,6 +49,7 @@ class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
                     ),
                   ],
                 ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -59,7 +60,61 @@ class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 80),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageContainer(
+                      message: 'Second notification',
+                      isSentByMe: false,
+                      isNotification: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageContainer(
+                      message: 'Second notification',
+                      isSentByMe: false,
+                      isNotification: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageContainer(
+                      message: 'Second notification',
+                      isSentByMe: false,
+                      isNotification: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageContainer(
+                      message: 'Second notification',
+                      isSentByMe: false,
+                      isNotification: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MessageContainer(
+                      message: 'Second notification',
+                      isSentByMe: false,
+                      isNotification: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
                 // Add more notifications or content as needed
               ],
             ),

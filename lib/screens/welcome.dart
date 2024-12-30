@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:signup1/screens/instructions.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/style.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/shared/responsive.dart';
-import 'package:signup1/widgets/blue_bottom_container.dart';  // Import the new container widget
+import 'package:signup1/widgets/blue_bottom_container.dart';
+
+import '../widgets/alerts.dart';  // Import the new container widget
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
-
   @override
+
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Show confirmation dialog when back button is pressed
+      await Alert.showConfirmationDialog(
+        context: context,
+        title: 'Exit',
+        content: 'Are you sure you want to exit?',
+        onYes: () {
+          // Exit the app or navigate back if needed
+          SystemNavigator.pop(); // Close the current screen
+        },
+        onNo: () {
+          // Prevent the back navigation
+        },
+      );
+      return false; // Prevent the default back button action
+    },
+    child: Scaffold(
       backgroundColor: AppColors.background_color,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,6 +100,6 @@ class WelcomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

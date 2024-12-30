@@ -77,7 +77,7 @@ class About extends StatelessWidget {
 
                         Text(
                           "Team Information\n\n"
-                              "Developer & Engineer: [Your Name]\n\n"
+                              "Developer & Engineer: [George Fady , Sherry Romany , Mahmoud Aref]\n\n"
                               "Responsible for designing the robot, programming the hardware, and creating the app interface to deliver an integrated smart cleaning experience.",
                           style: AppStyles.mediumStyle.copyWith(
                             color: AppColors.whiteColor,
@@ -91,7 +91,8 @@ class About extends StatelessWidget {
                               "We’d like to acknowledge the tools and platforms that made this project possible:\n\n"
                               "• Arduino and Arduino Nano 33 IoT for the microcontroller and sensor integration.\n"
                               "• Flutter for the seamless app interface.\n"
-                              "• [Add any other tools, libraries, or organizations you want to mention.]",
+                             // "• [Add any other tools, libraries, or organizations you want to mention.]",
+                              ,
                           style: AppStyles.mediumStyle.copyWith(
                             color: AppColors.whiteColor,
                             fontSize: Responsive.responsiveFontSize(context, 18.0),
@@ -102,8 +103,8 @@ class About extends StatelessWidget {
                         Text(
                           "Contact Us\n\n"
                               "Have feedback or need support? We’d love to hear from you!\n\n"
-                              "Email: [Your Email Address]\n"
-                              "[Add any relevant social media or website links.]",
+                              "Email: vacmanHelp@gmail.com\n",
+                              // "[Add any relevant social media or website links.]",
                           style: AppStyles.mediumStyle.copyWith(
                             color: AppColors.whiteColor,
                             fontSize: Responsive.responsiveFontSize(context, 18.0),
@@ -114,7 +115,7 @@ class About extends StatelessWidget {
                         Text(
                           "Version Information\n\n"
                               "Version: 1.0.0\n"
-                              "Release Date: [Insert Date]",
+                              "Release Date: 1-jun-2025",
                           style: AppStyles.mediumStyle.copyWith(
                             color: AppColors.whiteColor,
                             fontSize: Responsive.responsiveFontSize(context, 18.0),

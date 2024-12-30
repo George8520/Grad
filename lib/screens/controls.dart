@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:signup1/screens/connected.dart';
+import 'package:signup1/screens/welcome.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
+
+import '../widgets/alerts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -244,7 +248,16 @@ class _DirectionControlsState extends State<DirectionControls> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return WillPopScope(
+        onWillPop: () async {
+          // Override back button to navigate to a specific page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Connected()),  // Your target screen
+          );
+          return Future.value(false); // Prevent default back button action
+        },
+    child: Column(
       children: [
         GestureDetector(
           onTapDown: (_) => _handleButtonPress('up'),
@@ -301,6 +314,6 @@ class _DirectionControlsState extends State<DirectionControls> {
           ),
         ),
       ],
-    );
+    ));
   }
 }

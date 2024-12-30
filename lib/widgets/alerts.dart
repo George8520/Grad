@@ -15,7 +15,7 @@ class Alert {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
+          title: Text(title,style: TextStyle(fontWeight: FontWeight.bold),),
           content: Text(content),
           actions: [
             Row(
