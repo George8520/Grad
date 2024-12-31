@@ -4,6 +4,7 @@ import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/footer.dart';
 import '../widgets/messages.dart';
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Notifiaction_screen extends StatefulWidget {
   final bool hideFooter;
@@ -23,7 +24,8 @@ class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
       backgroundColor: AppColors.background_color,
       appBar: AppBarChooser(
         appBarType: 'CustomAppBar2',
-        title: 'Notifications',
+        title:// 'Notifications',
+          AppLocalizations.of(context)!.notifications
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0), // Reduced padding for better layout

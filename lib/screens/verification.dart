@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/password_set_successful.dart';
+import 'package:signup1/screens/set_new_password.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
@@ -8,6 +9,7 @@ import 'package:signup1/widgets/text_field.dart';
 import 'package:signup1/widgets/account_action_row.dart';
 
 import '../shared/responsive.dart'; // Import the reusable widget
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerificationScreen extends StatelessWidget {
   const VerificationScreen({Key? key}) : super(key: key);
@@ -27,8 +29,9 @@ class VerificationScreen extends StatelessWidget {
                  //SizedBox(height: Responsive.customHeight(context, 0.01)),
                 LogoWidget(),
                  SizedBox(height: Responsive.customHeight(context, 0.01)),
-                const Text(
-                  "Enter 4-digit verification code",
+                 Text(
+                 // "Enter 4-digit verification code",
+                  AppLocalizations.of(context)!.enter4digits,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 30,
@@ -36,8 +39,9 @@ class VerificationScreen extends StatelessWidget {
                   ),
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.05)),
-                const Text(
-                  "A verification code was sent to your email. Please check your mail.",
+                 Text(
+                 // "A verification code was sent to your email. Please check your mail.",
+                  AppLocalizations.of(context)!.verification_sent,
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 20, color: AppColors.dark_grey_Color),
                 ),
@@ -49,21 +53,26 @@ class VerificationScreen extends StatelessWidget {
         
                 // Reusable AccountActionRow for Resend Email
                 AccountActionRow(
-                  message: "Haven’t got the email yet? ",
-                  actionText: "Resend email",
+                  message:// "Haven’t got the email yet? ",
+                  AppLocalizations.of(context)!.havent_got_mail,
+                  actionText: //"Resend email",
+                  AppLocalizations.of(context)!.resend_email,
+
                   onActionPressed: () {
                     // Define your resend email logic here
-                    print('Resending email...');
+                   // print('Resending email...');
                   },
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.05)),
         
                 CustomButton(
-                  text: "Next",
+                  text:// "Next",
+                  AppLocalizations.of(context)!.next,
+
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Set_Successful()),);
+                      MaterialPageRoute(builder: (context) => Set_new_password()),);
                   },
                 ),
               ],

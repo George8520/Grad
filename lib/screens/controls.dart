@@ -6,7 +6,7 @@ import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
-
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/alerts.dart';
 
 void main() {
@@ -66,7 +66,9 @@ class _ControlsPageState extends State<ControlsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background_color,
-      appBar: AppBarChooser(appBarType: 'CustomAppBar2', title: 'Controls'),
+      appBar: AppBarChooser(appBarType: 'CustomAppBar2', title: //'Controls'
+      AppLocalizations.of(context)!.controls,
+      ),
       body: Stack(
         children: [
           Column(
@@ -101,7 +103,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               ),
                             ),
                             Text(
-                              'Vacuum',
+                             // 'Vacuum',
+                              AppLocalizations.of(context)!.vacuum,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -123,7 +126,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               ),
                             ),
                             Text(
-                              'Sweep',
+                             // 'Sweep',
+                              AppLocalizations.of(context)!.sweep,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -145,7 +149,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               ),
                             ),
                             Text(
-                              'Temperature',
+                             // 'Temperature',
+                              AppLocalizations.of(context)!.temperature,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -167,7 +172,8 @@ class _ControlsPageState extends State<ControlsPage> {
                       ),
                     ),
                     Text(
-                      'Automatic control',
+                      //'Automatic control',
+                      AppLocalizations.of(context)!.automaticcontrol,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,

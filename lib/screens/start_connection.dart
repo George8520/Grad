@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/connected.dart';
 import 'package:signup1/screens/instructions.dart';
-import 'package:signup1/screens/welcome.dart';
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
@@ -46,9 +46,13 @@ appBar: AppBarChooser(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
         RoundedHeader(
-                greeting: 'Hello, User!',
-                subtitle: 'Welcome back.',
-                greetingStyle: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w600),
+                greeting: //'Hello, User!',
+          AppLocalizations.of(context)!.hello,
+
+          subtitle:// 'Welcome back.',
+          AppLocalizations.of(context)!.welcomeback,
+
+          greetingStyle: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w600),
                 subtitleStyle: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 32),
                 backgroundColor: AppColors.primaryColor,
                 icon: Icons.notifications_rounded,
@@ -68,7 +72,9 @@ appBar: AppBarChooser(
                    SloganWidget(),
                      SizedBox(height: Responsive.customHeight(context, 0.02)),
                     CustomButton(
-                      text: 'Start connection',
+                      text: //'Start connection',
+                      AppLocalizations.of(context)!.startconnection,
+
                       onPressed: () {
                         Navigator.push(
                           context,

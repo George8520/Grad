@@ -9,6 +9,7 @@ import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart'; // Import the footer widget
 import '../widgets/alerts.dart';
 import '../widgets/assets_chooser.dart';
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Connected extends StatefulWidget {
   @override
@@ -18,8 +19,12 @@ class Connected extends StatefulWidget {
 void _handleconnection(BuildContext context) {
   Alert.showConfirmationDialog(
     context: context,
-    title: 'Disconnection',
-    content: 'Are you sure you want to Disconnect?',
+    title:// 'Disconnection',
+    AppLocalizations.of(context)!.disconnection,
+
+    content:// 'Are you sure you want to Disconnect?',
+    AppLocalizations.of(context)!.areusureuwantdisconnect,
+
     onYes: () {
       // Perform logout action
       Navigator.push(
@@ -43,8 +48,11 @@ class _ConnectedState extends State<Connected> {
         // Show confirmation dialog when back button is pressed
         await Alert.showConfirmationDialog(
           context: context,
-          title: 'Disconnection',
-          content: 'Are you sure you want to Disconnect?',
+          title:// 'Disconnection',
+          AppLocalizations.of(context)!.disconnection,
+
+          content: //'Are you sure you want to Disconnect?',
+          AppLocalizations.of(context)!.areusureuwantdisconnect,
           onYes: () {
             // Exit the app or navigate back if needed
             Navigator.pushReplacement(
@@ -69,8 +77,10 @@ class _ConnectedState extends State<Connected> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RoundedHeader(
-              greeting: 'Hello, User!',
-              subtitle: 'Welcome back.',
+              greeting:// 'Hello, User!',
+              AppLocalizations.of(context)!.hello,
+              subtitle:// 'Welcome back.',
+              AppLocalizations.of(context)!.welcomeback,
               backgroundColor: AppColors.primaryColor,
               icon: Icons.notifications,
               onPressed: () {
@@ -90,9 +100,12 @@ class _ConnectedState extends State<Connected> {
                 fontSize: Responsive.responsiveFontSize(context, 24), // Responsive subtitle font size
               ),
               image: vaccum_ready(),
-              rowText: Text('Your vacuum is ready!'),
+              rowText: Text(//'Your vacman is ready!'
+                AppLocalizations.of(context)!.vacmanready,  ),
               image2: battery(),
-              rowText2: Text('Battery percentage:  '),
+              rowText2: Text(//'Battery percentage:  '
+                  AppLocalizations.of(context)!.batterypercent
+              ),
             ),
             Expanded(
               child: Center(
@@ -101,8 +114,9 @@ class _ConnectedState extends State<Connected> {
                   children: [
                     SloganWidget(),
                     CustomButton(
-                      text: 'Connected',
-                      onPressed: () {
+                      text:// 'Connected',
+                      AppLocalizations.of(context)!.connected,
+                        onPressed: () {
                         _handleconnection(context);
                         // Add connection logic here
                       },

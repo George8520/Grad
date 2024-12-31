@@ -9,6 +9,7 @@ import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/text_field.dart';
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Forgot_password extends StatelessWidget {
   Forgot_password({super.key});
@@ -33,36 +34,43 @@ class Forgot_password extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Email Address',
+                  //  'Email Address',
+                    AppLocalizations.of(context)!.email,
                     style: AppStyles.smallStyle.copyWith(color: AppColors.dark_grey_Color),
                   ),
                 ),
                 SizedBox(height: Responsive.customHeight(context, 0.03)),
                 // Email TextField
-                const CustomTextField(hintText: 'Email Address',
-                   obscureText: false,),
+                 CustomTextField(hintText: //'Email Address',
+                AppLocalizations.of(context)!.email,
+                  obscureText: false,),
                 SizedBox(height: Responsive.customHeight(context, 0.05)),
                 // Info text aligned similarly
-                const Row(
+                 Row(
                   children: [Expanded(child: Text(
-                    'A verification code will be sent to your email',
+                   // 'A verification code will be sent to your email',
+                    AppLocalizations.of(context)!.verification,
+
                     style: TextStyle(color: AppColors.dark_grey_Color, fontSize: 20),
                   ),)
         
                   ],
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.04)),
-                const Row(  // Add this Row for alignment
+                 Row(  // Add this Row for alignment
                   children: [
                     Text(
-                      'Please check your spam section',
+                     // 'Please check your spam section',
+                      AppLocalizations.of(context)!.chechspam,
                       style: TextStyle(color: AppColors.dark_grey_Color, fontSize: 16),
                     ),
                   ],
                 ),
                  SizedBox(height: Responsive.customHeight(context, 0.05)),
                 // Forgot Password
-                CustomButton(text: 'Next', onPressed: () {
+                CustomButton(text: //'Next',
+                AppLocalizations.of(context)!.next,
+                    onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => VerificationScreen()),);
@@ -72,7 +80,11 @@ class Forgot_password extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                AccountActionRow(message: "Don't have an account?", actionText: 'Sign up', onActionPressed: () {
+                AccountActionRow(message: //"Don't have an account?",
+                AppLocalizations.of(context)!.noaccount,
+                  actionText: //'Sign up',
+                  AppLocalizations.of(context)!.signup,
+                  onActionPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SignUpScreen()),);

@@ -6,6 +6,7 @@ import 'package:signup1/widgets/assets_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:signup1/shared/responsive.dart'; // Import the responsive utility class
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Set_Successful extends StatelessWidget {
   const Set_Successful({super.key});
@@ -32,7 +33,8 @@ class Set_Successful extends StatelessWidget {
                 const Center(child: LogoWidget()),
                 SizedBox(height: Responsive.customHeight(context, 0.05)), // Responsive spacing after the logo
                 Text(
-                  "Congratulations!",
+                 // "Congratulations!",
+                  AppLocalizations.of(context)!.congrats,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: Responsive.responsiveFontSize(context, 30), // Responsive font size
@@ -41,7 +43,8 @@ class Set_Successful extends StatelessWidget {
                 ),
                 SizedBox(height: Responsive.customHeight(context, 0.05)), // Responsive spacing
                 Text(
-                  "You are ready to enjoy our service.",
+                 // "You are ready to enjoy our service.",
+                  AppLocalizations.of(context)!.uareready,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: Responsive.responsiveFontSize(context, 20), // Responsive font size
@@ -69,7 +72,8 @@ class Set_Successful extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomButton(
-                      text: "Continue",
+                      text: //"Continue",
+                      AppLocalizations.of(context)!.continuee,
                       onPressed: () {
                         Navigator.push(
                           context,

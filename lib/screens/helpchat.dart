@@ -9,6 +9,7 @@ import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
 import 'package:signup1/widgets/text_field.dart';
 import '../widgets/messages.dart';
+import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Helpchat extends StatefulWidget {
   Helpchat({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class _HelpchatState extends State<Helpchat> {
       backgroundColor: AppColors.background_color,
       appBar: AppBarChooser(
         appBarType: 'CustomAppBar2',
-        title: 'HelpChat',
+        title: //'HelpChat',
+          AppLocalizations.of(context)!.helpchat
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
