@@ -86,7 +86,7 @@ class About extends StatelessWidget {
                           // "Team Information\n\n"
                           //     "Developer & Engineer: [George Fady , Sherry Romany , Mahmoud Aref]\n\n"
                           //     "Responsible for designing the robot, programming the hardware, and creating the app interface to deliver an integrated smart cleaning experience.",
-                          AppLocalizations.of(context)!.howitworks,
+                          AppLocalizations.of(context)!.teaminfo,
 
                           style: AppStyles.mediumStyle.copyWith(
                             color: AppColors.whiteColor,

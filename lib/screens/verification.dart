@@ -12,12 +12,14 @@ import '../shared/responsive.dart'; // Import the reusable widget
 import'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerificationScreen extends StatelessWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+  final String fromPage; // Accept the flag to know where the navigation came from
+
+  const VerificationScreen({Key? key, required this.fromPage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background_color, // Light blue background
+      backgroundColor: AppColors.background_color,
       appBar: AppBarChooser(appBarType: 'CustomAppBar1', title: ''),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -26,11 +28,9 @@ class VerificationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 //SizedBox(height: Responsive.customHeight(context, 0.01)),
                 LogoWidget(),
-                 SizedBox(height: Responsive.customHeight(context, 0.01)),
-                 Text(
-                 // "Enter 4-digit verification code",
+                SizedBox(height: Responsive.customHeight(context, 0.01)),
+                Text(
                   AppLocalizations.of(context)!.enter4digits,
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -38,41 +38,37 @@ class VerificationScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                 SizedBox(height: Responsive.customHeight(context, 0.05)),
-                 Text(
-                 // "A verification code was sent to your email. Please check your mail.",
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                Text(
                   AppLocalizations.of(context)!.verification_sent,
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 20, color: AppColors.dark_grey_Color),
                 ),
-                 SizedBox(height: Responsive.customHeight(context, 0.05)),
-        
-                // Using the updated CustomTextField for verification code input
-                const CustomTextField(maxLength: 4), // Pass maxLength as 4 to create the code input fields
-                 SizedBox(height: Responsive.customHeight(context, 0.05)),
-        
-                // Reusable AccountActionRow for Resend Email
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                const CustomTextField(maxLength: 4),
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
                 AccountActionRow(
-                  message:// "Haven’t got the email yet? ",
-                  AppLocalizations.of(context)!.havent_got_mail,
-                  actionText: //"Resend email",
-                  AppLocalizations.of(context)!.resend_email,
-
+                  message: AppLocalizations.of(context)!.havent_got_mail,
+                  actionText: AppLocalizations.of(context)!.resend_email,
                   onActionPressed: () {
-                    // Define your resend email logic here
-                   // print('Resending email...');
+                    // Resend email logic here
                   },
                 ),
-                 SizedBox(height: Responsive.customHeight(context, 0.05)),
-        
+                SizedBox(height: Responsive.customHeight(context, 0.05)),
                 CustomButton(
-                  text:// "Next",
-                  AppLocalizations.of(context)!.next,
-
+                  text: AppLocalizations.of(context)!.next,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Set_new_password()),);
+                    if (fromPage == 'SignUp') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Set_Successful()),
+                      );
+                    } else if (fromPage == 'ForgetPassword') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Set_new_password()),
+                      );
+                    }
                   },
                 ),
               ],

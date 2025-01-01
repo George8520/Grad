@@ -73,7 +73,7 @@ class Forgot_password extends StatelessWidget {
                     onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => VerificationScreen()),);
+                    MaterialPageRoute(builder: (context) => VerificationScreen(fromPage: 'ForgetPassword',)),);
                 }),
                  SizedBox(height: Responsive.customHeight(context, 0.05)),
                 // Sign Up Link

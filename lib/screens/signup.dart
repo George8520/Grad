@@ -116,7 +116,7 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => VerificationScreen()),);
+                        MaterialPageRoute(builder: (context) => VerificationScreen( fromPage: 'SignUp',)),);
                     },
                     child:  Text(
                      // "Sign up",
