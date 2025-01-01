@@ -52,7 +52,7 @@ class _Settings_screenState extends State<Settings_screen> {
       onNo: () {
         // No action needed, just dismiss the dialog
       },
-      yesButton: Directionality(
+      yesButton: const Directionality(
         textDirection: TextDirection.ltr,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
