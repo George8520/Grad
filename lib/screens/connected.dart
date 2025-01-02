@@ -10,7 +10,7 @@ import 'package:signup1/widgets/footer.dart'; // Import the footer widget
 import '../widgets/alerts.dart';
 import '../widgets/assets_chooser.dart';
 import'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:signup1/widgets//reusable_toggle_switch.dart'; // Adjust the import path as necessary
 class Connected extends StatefulWidget {
   @override
   _ConnectedState createState() => _ConnectedState();
@@ -40,6 +40,7 @@ void _handleconnection(BuildContext context) {
 
 class _ConnectedState extends State<Connected> {
   int selectedIndex = 1; // Default to Home icon
+  bool _isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -108,21 +109,52 @@ class _ConnectedState extends State<Connected> {
               ),
             ),
             Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SloganWidget(),
-                    CustomButton(
-                      text:// 'Connected',
-                      AppLocalizations.of(context)!.connected,
-                        onPressed: () {
-                        _handleconnection(context);
-                        // Add connection logic here
-                      },
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //SloganWidget(),
+                  // CustomButton(
+                  //   text: "",borderRadius: 100,
+                  // width: Responsive.customWidth(context, 0.2),
+                  //   height: Responsive.customHeight(context, 0.1),
+                  //   onPressed: () {
+                  //
+                  // },),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Text(//"Robot currrent state: ",
+                       AppLocalizations.of(context)!.robotstate,
+                       style: TextStyle(fontWeight: FontWeight.bold,
+                       fontSize: Responsive.responsiveFontSize(context, 20),
+                         color: AppColors.primaryColor,
+                         // Responsive subtitle font size
+                     ),),
+                      SizedBox(height: Responsive.customHeight(context, 0.2),),
+                      ReusableToggleSwitch(
+                        value: _isSwitched,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSwitched = newValue;
+                          });
+                        },scale: 0.7,
+                        activeText: AppLocalizations.of(context)!.on,
+                        inactiveText: AppLocalizations.of(context)!.off,
+                        activeColor: AppColors.green_color, // Active color
+                        inactiveColor: AppColors.red_color, // Inactive color
+                      ),
+                   ],
+                 ),
+                 // SizedBox(height: Responsive.customHeight(context, 0.2),),
+                  CustomButton(
+                    text:// 'Connected',
+                    AppLocalizations.of(context)!.connected,
+                      onPressed: () {
+                      _handleconnection(context);
+                      // Add connection logic here
+                    },
+                  ),
+                ],
               ),
             ),
           ],

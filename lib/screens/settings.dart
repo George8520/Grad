@@ -101,6 +101,12 @@ class _Settings_screenState extends State<Settings_screen> {
           appBarType: 'CustomAppBar2',
           // title: 'Settings',
           title: AppLocalizations.of(context)!.settings, // Localized title
+          onBackPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Connected()),
+            );
+          },
         ),
         body: Padding(
           padding: const EdgeInsets.all(5.0),

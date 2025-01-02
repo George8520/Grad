@@ -74,5 +74,8 @@
   "confirm_new_password": "Confirm new password",
   "reset_password": "Reset password",
   "changelang": "Change Language",
-  "currenttemp": "Current Temperature: "
+  "currenttemp": "Current Temperature: ",
+  "on": "ON",
+  "off": "OFF",
+  "robotstate": "Robot currrent state:   "
 }

@@ -79,7 +79,12 @@ class _ControlsPageState extends State<ControlsPage> {
     return Scaffold(
       backgroundColor: AppColors.background_color,
       appBar: AppBarChooser(appBarType: 'CustomAppBar2', title: //'Controls'
-      AppLocalizations.of(context)!.controls,
+      AppLocalizations.of(context)!.controls,onBackPressed: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Connected()),
+        );
+      },
       ),
       body: Stack(
         children: [

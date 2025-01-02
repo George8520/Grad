@@ -27,17 +27,20 @@ class Forgot_password extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // Logo
-                SizedBox(height: Responsive.customHeight(context, 0.05)),
+                //SizedBox(height: Responsive.customHeight(context, 0.05)),
                 LogoWidget(),
                 SizedBox(height: Responsive.customHeight(context, 0.05)),
                 // Title
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                  //  'Email Address',
-                    textAlign: TextAlign.start,
-                    AppLocalizations.of(context)!.email,
-                    style: AppStyles.smallStyle.copyWith(color: AppColors.dark_grey_Color),
+                  child: Align(alignment: Directionality.of(context) == TextDirection.rtl
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                    child: Text(
+                    //  'Email Address',
+                      AppLocalizations.of(context)!.email,
+                      style: AppStyles.smallStyle.copyWith(color: AppColors.dark_grey_Color),
+                    ),
                   ),
                 ),
                 SizedBox(height: Responsive.customHeight(context, 0.03)),

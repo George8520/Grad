@@ -4,36 +4,32 @@ import 'package:signup1/shared/color.dart';
 class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Icon? leftIcon; // Nullable left icon
-  final VoidCallback? onBackPressed;
+  final VoidCallback? onBackPressed; // Optional callback for custom back button action
 
   const CustomAppBar1({
     Key? key,
     required this.title,
     this.leftIcon, // Nullable left icon
-    this.onBackPressed,
+    this.onBackPressed, // Nullable onBackPressed to allow for custom behavior
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      // borderRadius: BorderRadius.only(
-      //   bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
-      //   bottomRight: Radius.circular(30.0), // Adjust the radius as needed
-      // ),
       child: AppBar(
         title: Text(
           title,
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.black
+            color: Colors.black,
           ),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: leftIcon ?? const Icon(Icons.arrow_back, color: Colors.black,size: 32,), // Default left icon if none is passed
-          onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
+          icon: leftIcon ?? const Icon(Icons.arrow_back, color: Colors.black, size: 32,), // Default left icon if none is passed
+          onPressed: onBackPressed ?? () => Navigator.of(context).pop(), // Use custom onBackPressed if provided, else default to Navigator.pop()
         ),
       ),
     );
@@ -48,6 +44,7 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
   final Icon? leftIcon; // Nullable left icon
   final Icon? rightIcon; // Nullable right icon
   final VoidCallback? onRightIconPressed;
+  final VoidCallback? onBackPressed; // Optional callback for custom back button action
 
   const CustomAppBar2({
     Key? key,
@@ -55,15 +52,12 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
     this.leftIcon, // Nullable left icon
     this.rightIcon, // Nullable right icon
     this.onRightIconPressed,
+    this.onBackPressed, // Nullable onBackPressed to allow for custom behavior
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      // borderRadius: BorderRadius.only(
-      //   bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
-      //   bottomRight: Radius.circular(30.0), // Adjust the radius as needed
-      // ),
       child: AppBar(
         title: Text(
           title,
@@ -83,7 +77,7 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
                 color: AppColors.whiteColor,
                 size: 32,
               ), // Default left icon
-          onPressed: () => Navigator.of(context).pop(), // Default back button action
+          onPressed: onBackPressed ?? () => Navigator.of(context).pop(), // Use custom onBackPressed if provided, else default to Navigator.pop()
         ),
         actions: rightIcon != null
             ? [
@@ -157,13 +151,13 @@ class AppBarChooser extends StatelessWidget implements PreferredSizeWidget {
       return CustomAppBar2(
         title: title,
         leftIcon: leftIcon,
-         rightIcon: rightIcon ?? null, // Default right icon if no icon is passed
-         onRightIconPressed: onRightIconPressed,
+        rightIcon: rightIcon ?? null, // Default right icon if no icon is passed
+        onRightIconPressed: onRightIconPressed,
+        onBackPressed: onBackPressed, // Custom back navigation if provided
       );
     } else if (appBarType == 'CustomAppBarColor') {
       return CustomAppBarColor(
-        backgroundColor: appBarColor ?? AppColors.primaryColor, // Use passed color or default to blue
-
+        backgroundColor: appBarColor ?? AppColors.primaryColor, // Use passed color or default to primaryColor
       );
     }
     return CustomAppBar1(title: title); // Default to CustomAppBar1 if appBarType is unknown
