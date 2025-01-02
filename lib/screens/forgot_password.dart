@@ -35,6 +35,7 @@ class Forgot_password extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                   //  'Email Address',
+                    textAlign: TextAlign.start,
                     AppLocalizations.of(context)!.email,
                     style: AppStyles.smallStyle.copyWith(color: AppColors.dark_grey_Color),
                   ),
@@ -50,7 +51,6 @@ class Forgot_password extends StatelessWidget {
                   children: [Expanded(child: Text(
                    // 'A verification code will be sent to your email',
                     AppLocalizations.of(context)!.verification,
-
                     style: TextStyle(color: AppColors.dark_grey_Color, fontSize: 20),
                   ),)
         

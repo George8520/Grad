@@ -16,10 +16,10 @@ class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
-        bottomRight: Radius.circular(30.0), // Adjust the radius as needed
-      ),
+      // borderRadius: BorderRadius.only(
+      //   bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
+      //   bottomRight: Radius.circular(30.0), // Adjust the radius as needed
+      // ),
       child: AppBar(
         title: Text(
           title,
@@ -60,10 +60,10 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
-        bottomRight: Radius.circular(30.0), // Adjust the radius as needed
-      ),
+      // borderRadius: BorderRadius.only(
+      //   bottomLeft: Radius.circular(30.0),  // Adjust the radius as needed
+      //   bottomRight: Radius.circular(30.0), // Adjust the radius as needed
+      // ),
       child: AppBar(
         title: Text(
           title,

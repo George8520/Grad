@@ -30,19 +30,28 @@ class VerificationScreen extends StatelessWidget {
               children: [
                 LogoWidget(),
                 SizedBox(height: Responsive.customHeight(context, 0.01)),
-                Text(
-                  AppLocalizations.of(context)!.enter4digits,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                Align(
+                  alignment: Directionality.of(context) == TextDirection.rtl
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Text(
+                    AppLocalizations.of(context)!.enter4digits,
+                   // textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(height: Responsive.customHeight(context, 0.05)),
-                Text(
-                  AppLocalizations.of(context)!.verification_sent,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 20, color: AppColors.dark_grey_Color),
+                Align(
+                  alignment: Directionality.of(context) == TextDirection.rtl
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Text(
+                    AppLocalizations.of(context)!.verification_sent,
+                    style: TextStyle(fontSize: 20, color: AppColors.dark_grey_Color),
+                  ),
                 ),
                 SizedBox(height: Responsive.customHeight(context, 0.05)),
                 const CustomTextField(maxLength: 4),

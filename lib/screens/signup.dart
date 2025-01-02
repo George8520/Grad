@@ -36,7 +36,9 @@ class SignUpScreen extends StatelessWidget {
           
                 // User Name Text and Input
                  Align(
-                  alignment: Alignment.centerLeft,
+                   alignment: Directionality.of(context) == TextDirection.rtl
+                       ? Alignment.centerRight
+                       : Alignment.centerLeft,
                   child: Text(
                     //"User Name",
                     AppLocalizations.of(context)!.username,
@@ -54,8 +56,9 @@ class SignUpScreen extends StatelessWidget {
           
                 // Email Text and Input
                  Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
+                   alignment: Directionality.of(context) == TextDirection.rtl
+                       ? Alignment.centerRight
+                       : Alignment.centerLeft,                  child: Text(
                    // "Email",
                     AppLocalizations.of(context)!.email,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AppColors.light_grey_Color),
@@ -71,8 +74,9 @@ class SignUpScreen extends StatelessWidget {
           
                 // Password Text and Input
                  Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
+                   alignment: Directionality.of(context) == TextDirection.rtl
+                       ? Alignment.centerRight
+                       : Alignment.centerLeft,                  child: Text(
                    // "Password",
                     AppLocalizations.of(context)!.password,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AppColors.light_grey_Color),
@@ -89,8 +93,9 @@ class SignUpScreen extends StatelessWidget {
           
                 // Confirm Password Text and Input
                  Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
+                   alignment: Directionality.of(context) == TextDirection.rtl
+                       ? Alignment.centerRight
+                       : Alignment.centerLeft,                  child: Text(
                    // "Confirm Password",
                     AppLocalizations.of(context)!.confirmpass,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AppColors.light_grey_Color),

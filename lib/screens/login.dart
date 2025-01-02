@@ -55,7 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   LogoWidget(),
                   SizedBox(height: Responsive.customHeight(context, 0.1)),
                   Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Directionality.of(context) == TextDirection.rtl
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     child: Text(
                       AppLocalizations.of(context)!.signintoyouraccount,
                       style: AppStyles.smallStyle.copyWith(
@@ -75,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: Responsive.customHeight(context, 0.01)),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Directionality.of(context) == TextDirection.rtl
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
