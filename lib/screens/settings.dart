@@ -6,7 +6,7 @@ import 'package:signup1/screens/helpchat.dart';
 import 'package:signup1/screens/login.dart';
 import 'package:signup1/screens/notification_screen.dart';
 import 'package:signup1/shared/color.dart';
-import 'package:signup1/widgets/alert_withoutbuttons.dart';
+import 'package:signup1/widgets/show_dialog.dart';
 import 'package:signup1/widgets/alerts.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/button.dart';
