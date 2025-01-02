@@ -74,7 +74,8 @@
   "new_password": "كلمة المرور الجديدة",
   "confirm_new_password": "تأكيد كلمة المرور الجديدة",
   "reset_password": "إعادة تعيين كلمة المرور",
-  "changelang": "تغيير اللغة"
+  "changelang": "تغيير اللغة",
+  "currenttemp": "درجة الحرارة الحالية: "
 
 }
 

@@ -3,7 +3,7 @@ import 'package:signup1/widgets/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../shared/responsive.dart';
 
-class Alert_no_buttons {
+class show_dialog {
   static Future<void> showConfirmationDialog_nobuttons({
     required BuildContext context,
     required String title,

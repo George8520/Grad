@@ -42,7 +42,7 @@ class _Settings_screenState extends State<Settings_screen> {
     );
   }
   void _handleLanguage(BuildContext context) {
-    Alert_no_buttons.showConfirmationDialog_nobuttons(
+    show_dialog.showConfirmationDialog_nobuttons(
       context: context,
       title: AppLocalizations.of(context)!.changelang, // Language change prompt
       content: "", // Empty content as the buttons will take care of the UI

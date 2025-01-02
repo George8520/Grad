@@ -7,6 +7,7 @@ import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
 import'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:signup1/widgets/show_dialog.dart';
 import '../widgets/alerts.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class _ControlsPageState extends State<ControlsPage> {
   int _vacuumSweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
   int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
   int _AutoIndex = -1; // -1 means no button is toggled for auto
+  String? _temperature; // Holds the temperature value
 
   // Handle button press and toggle state for Vacuum/Sweep
   void _handleVacuumSweepPress(int index) {
@@ -55,10 +57,20 @@ class _ControlsPageState extends State<ControlsPage> {
   void _handleTemperatureAutoPress(int index) {
     setState(() {
       if (_tempIndex == index) {
-        _tempIndex = -1; // Deselect the button if already selected
+        _tempIndex = -1;
+        _temperature = null; // Clear temperature
       } else {
-        _tempIndex = index; // Select the pressed button
+        _tempIndex = index;
+        _fetchTemperature();
       }
+    });
+  }
+
+  void _fetchTemperature() async {
+    // Mock temperature data fetching
+    await Future.delayed(Duration(microseconds:50 ));
+    setState(() {
+      _temperature = "25°C"; // Example temperature value
     });
   }
 
@@ -77,6 +89,19 @@ class _ControlsPageState extends State<ControlsPage> {
               DirectionControls(isDisabled: _isAutomaticMode), // Pass the automatic mode state
               Spacer(),
               // Container that will extend under footer
+              if (_temperature != null)
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    "${AppLocalizations.of(context)!.currenttemp} $_temperature",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
               Container(
                 width: Responsive.customWidth(context, 1),
                 height: Responsive.customHeight(context, 0.4),
@@ -271,8 +296,8 @@ class _DirectionControlsState extends State<DirectionControls> {
           onTapCancel: () => _handleButtonRelease('up'),
           child: CustomButton(
             icon: Icons.arrow_upward_sharp,
-            height: 80,
-            width: 80,
+            height: Responsive.customHeight(context, 0.1),
+            width: Responsive.customWidth(context, 0.2),
             backgroundColor: widget.isDisabled ? Colors.grey : _upButtonColor,
             onPressed: () {},
           ),
@@ -286,38 +311,43 @@ class _DirectionControlsState extends State<DirectionControls> {
               onTapCancel: () => _handleButtonRelease('left'),
               child: CustomButton(
                 icon: Icons.arrow_back_sharp,
-                height: 80,
-                width: 80,
+                height: Responsive.customHeight(context, 0.1),
+                width: Responsive.customWidth(context, 0.2),
                 backgroundColor: widget.isDisabled ? Colors.grey : _leftButtonColor,
                 onPressed: () {},
               ),
             ),
-            SizedBox(width: 80),
+            SizedBox(width: Responsive.customWidth(context, 0.18)),
             GestureDetector(
               onTapDown: (_) => _handleButtonPress('right'),
               onTapUp: (_) => _handleButtonRelease('right'),
               onTapCancel: () => _handleButtonRelease('right'),
               child: CustomButton(
                 icon: Icons.arrow_forward_sharp,
-                height: 80,
-                width: 80,
+                height: Responsive.customHeight(context, 0.1),
+                width: Responsive.customWidth(context, 0.2),
                 backgroundColor: widget.isDisabled ? Colors.grey : _rightButtonColor,
                 onPressed: () {},
               ),
             ),
           ],
         ),
-        GestureDetector(
-          onTapDown: (_) => _handleButtonPress('down'),
-          onTapUp: (_) => _handleButtonRelease('down'),
-          onTapCancel: () => _handleButtonRelease('down'),
-          child: CustomButton(
-            icon: Icons.arrow_downward_rounded,
-            height: 80,
-            width: 80,
-            backgroundColor: widget.isDisabled ? Colors.grey : _downButtonColor,
-            onPressed: () {},
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTapDown: (_) => _handleButtonPress('down'),
+              onTapUp: (_) => _handleButtonRelease('down'),
+              onTapCancel: () => _handleButtonRelease('down'),
+              child: CustomButton(
+                icon: Icons.arrow_downward_rounded,
+                height: Responsive.customHeight(context, 0.1),
+                width: Responsive.customWidth(context, 0.2),
+                backgroundColor: widget.isDisabled ? Colors.grey : _downButtonColor,
+                onPressed: () {},
+              ),
+            ),
+          ],
         ),
       ],
     ));

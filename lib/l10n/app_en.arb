@@ -73,5 +73,6 @@
   "new_password": "New password",
   "confirm_new_password": "Confirm new password",
   "reset_password": "Reset password",
-  "changelang": "Change Language"
+  "changelang": "Change Language",
+  "currenttemp": "Current Temperature: "
 }
