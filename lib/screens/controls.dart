@@ -9,6 +9,7 @@ import 'package:signup1/widgets/footer.dart';
 import'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:signup1/widgets/show_dialog.dart';
 import '../widgets/alerts.dart';
+import '../widgets/direction_buttons.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -25,58 +26,75 @@ class _ControlsPageState extends State<ControlsPage> {
   // Variable to track the toggled button
   bool _isAutomaticMode = false; // Track if automatic mode is enabled
   bool _isTiltMode = false; // Track if automatic mode is enabled
-  int _vacuumSweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
-  int _tiltautoIndex = -1; // -1 means no button is toggled for vacuum/sweep
+  bool _isVacuumMode = false; // Track if automatic mode is enabled
+  bool _isSweepMode = false; // Track if automatic mode is enabled
+  int _vacuumIndex = -1; // -1 means no button is toggled for vacuum/sweep
+  int _sweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
   int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
-  // int _AutoIndex = -1; // -1 means no button is toggled for auto
-  // int _TiltIndex = -1; // -1 means no button is toggled for auto
+  int _AutoIndex = -1; // -1 means no button is toggled for auto
+  int _TiltIndex = -1; // -1 means no button is toggled for auto
   String? _temperature; // Holds the temperature value
 
-  // Handle button press and toggle state for Vacuum/Sweep
-  void _handleVacuumSweepPress(int index) {
-    setState(() {
-      if (_vacuumSweepIndex == index) {
-        _vacuumSweepIndex = -1; // Deselect the button if already selected
-      } else {
-        _vacuumSweepIndex = index; // Select the pressed button
-      }
-    });
-  }
-  void _handletiltautoPress(int index) {
-    setState(() {
-      if (_tiltautoIndex == index) {
-        _tiltautoIndex = -1; // Deselect the button if already selected
-        _isAutomaticMode = false;
 
+
+  // Handle button press and toggle state for Vacuum/Sweep
+  void _handleVacuumPress(int index) {
+    setState(() {
+      if (_vacuumIndex == index) {
+        _vacuumIndex = -1; // Deselect the button if already selected
+        _isVacuumMode=false;
+        print("vacuum not selected");
       } else {
-        _tiltautoIndex = index; // Select the pressed button
-        _isAutomaticMode = true;
+        _vacuumIndex = index; // Select the pressed button
+        _isVacuumMode=true;
+        _sweepIndex=-1;
+        _isSweepMode=false;
+        print("vacuum selected");
       }
     });
   }
-  // void _handletiltPress(int index) {
-  //   setState(() {
-  //     if (_TiltIndex == index) {
-  //       _TiltIndex = -1;
-  //       _isTiltMode = false; // Turn off automatic mode if already selected
-  //     } else {
-  //       _TiltIndex = index;
-  //       _isTiltMode = true; // Turn on automatic mode
-  //     }
-  //   });
-  // }
+  void _handleSweepPress(int index) {
+    setState(() {
+      if (_sweepIndex == index) {
+        _sweepIndex = -1; // Deselect the button if already selected
+        _isSweepMode=false;
+        print("sweep not selected");
+      } else {
+        _sweepIndex = index; // Select the pressed button
+        _isSweepMode=true;
+        _vacuumIndex=-1;
+        _isVacuumMode=false;
+        print("sweep selected");
+      }
+    });
+  }
+  void _handletiltPress(int index) {
+    setState(() {
+      if (_TiltIndex == index) {
+        _TiltIndex = -1;
+        _isTiltMode = false; // Turn off tilt mode if already selected
+      } else {
+        _TiltIndex = index;
+        _isTiltMode = true; // Turn on tilt mode
+        _AutoIndex = -1; // Disable Automatic if Tilt is selected
+        _isAutomaticMode = false; // Disable automatic mode
+      }
+    });
+  }
   // Handle the automatic control button press
-  // void _handleautoPress(int index) {
-  //   setState(() {
-  //     if (_AutoIndex == index) {
-  //       _AutoIndex = -1;
-  //       _isAutomaticMode = false; // Turn off automatic mode if already selected
-  //     } else {
-  //       _AutoIndex = index;
-  //       _isAutomaticMode = true; // Turn on automatic mode
-  //     }
-  //   });
-  // }
+  void _handleAutoPress(int index) {
+    setState(() {
+      if (_AutoIndex == index) {
+        _AutoIndex = -1;
+        _isAutomaticMode = false; // Turn off automatic mode if already selected
+      } else {
+        _AutoIndex = index;
+        _isAutomaticMode = true;
+        _TiltIndex = -1; // Disable Tilt if Automatic is selected
+        _isTiltMode = false; // Disable tilt mode when Auto is selected
+      }
+    });
+  }
 
   // Handle button press and toggle state for Temperature/Automatic
   void _handleTemperatureAutoPress(int index) {
@@ -116,7 +134,7 @@ class _ControlsPageState extends State<ControlsPage> {
           Column(
             children: [
               SizedBox(height: Responsive.customHeight(context, 0.1)), // Directional Buttons
-              DirectionControls(isDisabled: _isAutomaticMode), // Pass the automatic mode state
+              DirectionControls(isDisabled: _isAutomaticMode||_isTiltMode), // Pass the automatic mode state
               Spacer(),
               // Container that will extend under footer
               if (_temperature != null)
@@ -152,8 +170,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/vacuum.png',
-                                onPressed: () => _handleVacuumSweepPress(0),
-                                backgroundColor: _vacuumSweepIndex == 0 ? AppColors.green_color : AppColors.primaryColor,
+                                onPressed: _isSweepMode ? null : () => _handleVacuumPress(0), // Disable if vacuum is active
+                                backgroundColor: _vacuumIndex == 0 ? AppColors.green_color : (_isSweepMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.25),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
@@ -176,8 +194,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/sweep.png',
-                                onPressed: () => _handleVacuumSweepPress(1),
-                                backgroundColor: _vacuumSweepIndex == 1 ? AppColors.green_color : AppColors.primaryColor,
+                                onPressed: _isVacuumMode ? null : () => _handleSweepPress(0), // Disable if vacuum is active
+                                backgroundColor: _sweepIndex == 0 ? AppColors.green_color : (_isVacuumMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.25),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
@@ -222,15 +240,15 @@ class _ControlsPageState extends State<ControlsPage> {
                     ),
                     Row(
                       children: [
-                        
+
                         Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/automatic.png',
-                                onPressed: () => _handletiltautoPress(0),
-                                backgroundColor: _tiltautoIndex == 0 ? AppColors.green_color : AppColors.primaryColor,
+                                onPressed: _isTiltMode ? null : () => _handleAutoPress(0), // Disable if vacuum is active
+                                backgroundColor: _AutoIndex == 0 ? AppColors.green_color : (_isTiltMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.40),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
@@ -252,14 +270,14 @@ class _ControlsPageState extends State<ControlsPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: CustomButton(
-                                imageUrl: 'assets/images/tilt.png',
-                                onPressed: () => _handletiltautoPress(1),
-                                backgroundColor: _tiltautoIndex == 1 ? AppColors.green_color : AppColors.primaryColor,
-                                width: Responsive.customWidth(context, 0.4),
-                                height: Responsive.customHeight(context, 0.08),
+                                child: CustomButton(
+                                  imageUrl: 'assets/images/tilt.png',
+                                  onPressed: _isAutomaticMode ? null : () => _handletiltPress(0), // Disable if vacuum is active
+                                  backgroundColor: _TiltIndex == 0 ? AppColors.green_color : (_isAutomaticMode ? Colors.grey : AppColors.primaryColor),
+                                  width: Responsive.customWidth(context, 0.4),
+                                  height: Responsive.customHeight(context, 0.08),
+                                ),
                               ),
-                            ),
                             Text(
                               //'Automatic control',
                                 AppLocalizations.of(context)!.tilt,
@@ -296,129 +314,4 @@ class _ControlsPageState extends State<ControlsPage> {
   }
 }
 
-class DirectionControls extends StatefulWidget {
-  final bool isDisabled; // Add a parameter to control the disabled state
 
-  DirectionControls({required this.isDisabled});
-
-  @override
-  _DirectionControlsState createState() => _DirectionControlsState();
-}
-
-class _DirectionControlsState extends State<DirectionControls> {
-  // Track button colors
-  Color _upButtonColor = AppColors.primaryColor;
-  Color _downButtonColor = AppColors.primaryColor;
-  Color _leftButtonColor = AppColors.primaryColor;
-  Color _rightButtonColor = AppColors.primaryColor;
-
-  // Handle button press to change color to green
-  void _handleButtonPress(String direction) {
-    if (!widget.isDisabled) { // Check if buttons are not disabled
-      setState(() {
-        if (direction == 'up') {
-          _upButtonColor = AppColors.green_color;
-        } else if (direction == 'down') {
-          _downButtonColor = AppColors.green_color;
-        } else if (direction == 'left') {
-          _leftButtonColor = AppColors.green_color;
-        } else if (direction == 'right') {
-          _rightButtonColor = AppColors.green_color;
-        }
-      });
-    }
-  }
-
-  // Handle button release to reset color
-  void _handleButtonRelease(String direction) {
-    if (!widget.isDisabled) { // Check if buttons are not disabled
-      setState(() {
-        if (direction == 'up') {
-          _upButtonColor = AppColors.primaryColor;
-        } else if (direction == 'down') {
-          _downButtonColor = AppColors.primaryColor;
-        } else if (direction == 'left') {
-          _leftButtonColor = AppColors.primaryColor;
-        } else if (direction == 'right') {
-          _rightButtonColor = AppColors.primaryColor;
-        }
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          // Override back button to navigate to a specific page
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Connected()),  // Your target screen
-          );
-          return Future.value(false); // Prevent default back button action
-        },
-    child: Column(
-      children: [
-        GestureDetector(
-          onTapDown: (_) => _handleButtonPress('up'),
-          onTapUp: (_) => _handleButtonRelease('up'),
-          onTapCancel: () => _handleButtonRelease('up'),
-          child: CustomButton(
-            icon: Icons.arrow_upward_sharp,
-            height: Responsive.customHeight(context, 0.1),
-            width: Responsive.customWidth(context, 0.2),
-            backgroundColor: widget.isDisabled ? Colors.grey : _upButtonColor,
-            onPressed: () {},
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTapDown: (_) => _handleButtonPress('left'),
-              onTapUp: (_) => _handleButtonRelease('left'),
-              onTapCancel: () => _handleButtonRelease('left'),
-              child: CustomButton(
-                icon: Icons.arrow_back_sharp,
-                height: Responsive.customHeight(context, 0.1),
-                width: Responsive.customWidth(context, 0.2),
-                backgroundColor: widget.isDisabled ? Colors.grey : _leftButtonColor,
-                onPressed: () {},
-              ),
-            ),
-            SizedBox(width: Responsive.customWidth(context, 0.18)),
-            GestureDetector(
-              onTapDown: (_) => _handleButtonPress('right'),
-              onTapUp: (_) => _handleButtonRelease('right'),
-              onTapCancel: () => _handleButtonRelease('right'),
-              child: CustomButton(
-                icon: Icons.arrow_forward_sharp,
-                height: Responsive.customHeight(context, 0.1),
-                width: Responsive.customWidth(context, 0.2),
-                backgroundColor: widget.isDisabled ? Colors.grey : _rightButtonColor,
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTapDown: (_) => _handleButtonPress('down'),
-              onTapUp: (_) => _handleButtonRelease('down'),
-              onTapCancel: () => _handleButtonRelease('down'),
-              child: CustomButton(
-                icon: Icons.arrow_downward_rounded,
-                height: Responsive.customHeight(context, 0.1),
-                width: Responsive.customWidth(context, 0.2),
-                backgroundColor: widget.isDisabled ? Colors.grey : _downButtonColor,
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-      ],
-    ));
-  }
-}

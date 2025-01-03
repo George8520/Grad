@@ -6,12 +6,13 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final String? imageUrl;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed; // Change to nullable for handling disable state
   final Color backgroundColor;
   final Color? pressedColor;
   final double? height; // Nullable for responsiveness
   final double? width;
   final double borderRadius;
+  final bool isDisabled; // Add this parameter to control button disabling
 
   const CustomButton({
     Key? key,
@@ -24,6 +25,7 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.width,
     this.borderRadius = 32.0,
+    this.isDisabled = false, // Default to false, meaning the button is not disabled
   }) : assert(
   text != null || icon != null || imageUrl != null,
   'Either text, icon, or imageUrl must be provided',
@@ -40,12 +42,12 @@ class CustomButton extends StatelessWidget {
       height: buttonHeight,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, // Static background color
+          backgroundColor: isDisabled ? Colors.grey : backgroundColor, // Change color when disabled
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: isDisabled ? null : onPressed, // Disable the button when isDisabled is true
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
