@@ -6,13 +6,13 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final String? imageUrl;
-  final VoidCallback? onPressed; // Change to nullable for handling disable state
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final Color? pressedColor;
-  final double? height; // Nullable for responsiveness
+  final double? height;
   final double? width;
   final double borderRadius;
-  final bool isDisabled; // Add this parameter to control button disabling
+  final bool isDisabled;
 
   const CustomButton({
     Key? key,
@@ -25,8 +25,8 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.width,
     this.borderRadius = 32.0,
-    this.isDisabled = false, // Default to false, meaning the button is not disabled
-  }) : assert(
+    this.isDisabled = false,
+  })  : assert(
   text != null || icon != null || imageUrl != null,
   'Either text, icon, or imageUrl must be provided',
   ),
@@ -41,13 +41,23 @@ class CustomButton extends StatelessWidget {
       width: buttonWidth,
       height: buttonHeight,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isDisabled ? Colors.grey : backgroundColor, // Change color when disabled
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (isDisabled) {
+              return Colors.grey;
+            } else if (states.contains(MaterialState.pressed)) {
+              return pressedColor ?? backgroundColor;
+            } else {
+              return backgroundColor;
+            }
+          }),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
           ),
         ),
-        onPressed: isDisabled ? null : onPressed, // Disable the button when isDisabled is true
+        onPressed: isDisabled ? null : onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
