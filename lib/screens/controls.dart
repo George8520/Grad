@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart'; // For accelerometer
+import 'dart:async'; // For StreamSubscription and Timer
+
 import 'package:signup1/screens/connected.dart';
 import 'package:signup1/shared/style.dart';
 import 'package:signup1/shared/color.dart';
@@ -6,7 +9,7 @@ import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
 import 'package:signup1/widgets/button.dart';
 import 'package:signup1/widgets/footer.dart';
-import'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:signup1/widgets/show_dialog.dart';
 import '../widgets/alerts.dart';
 import '../widgets/direction_buttons.dart';
@@ -23,64 +26,76 @@ class ControlsPage extends StatefulWidget {
 }
 
 class _ControlsPageState extends State<ControlsPage> {
-  // Variable to track the toggled button
+  // Variables to track the toggled buttons and modes
   bool _isAutomaticMode = false; // Track if automatic mode is enabled
-  bool _isTiltMode = false; // Track if automatic mode is enabled
-  bool _isVacuumMode = false; // Track if automatic mode is enabled
-  bool _isSweepMode = false; // Track if automatic mode is enabled
-  int _vacuumIndex = -1; // -1 means no button is toggled for vacuum/sweep
-  int _sweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
-  int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
+  bool _isTiltMode = false; // Track if tilt mode is enabled
+  bool _isVacuumMode = false; // Track if vacuum mode is enabled
+  bool _isSweepMode = false; // Track if sweep mode is enabled
+  int _vacuumIndex = -1; // -1 means no button is toggled for vacuum
+  int _sweepIndex = -1; // -1 means no button is toggled for sweep
+  int _tempIndex = -1; // -1 means no button is toggled for temperature
   int _AutoIndex = -1; // -1 means no button is toggled for auto
-  int _TiltIndex = -1; // -1 means no button is toggled for auto
+  int _TiltIndex = -1; // -1 means no button is toggled for tilt
   String? _temperature; // Holds the temperature value
 
-
+  // Variables for accelerometer functionality
+  String _tiltDirection = 'stop'; // Holds the current tilt direction
+  bool _isMovementInProgress = false; // Indicates if movement is in progress
+  StreamSubscription<AccelerometerEvent>? _accelerometerSubscription; // Accelerometer subscription
 
   // Handle button press and toggle state for Vacuum/Sweep
   void _handleVacuumPress(int index) {
     setState(() {
       if (_vacuumIndex == index) {
         _vacuumIndex = -1; // Deselect the button if already selected
-        _isVacuumMode=false;
+        _isVacuumMode = false;
         print("vacuum not selected");
       } else {
         _vacuumIndex = index; // Select the pressed button
-        _isVacuumMode=true;
-        _sweepIndex=-1;
-        _isSweepMode=false;
+        _isVacuumMode = true;
+        _sweepIndex = -1;
+        _isSweepMode = false;
         print("vacuum selected");
       }
     });
   }
+
   void _handleSweepPress(int index) {
     setState(() {
       if (_sweepIndex == index) {
         _sweepIndex = -1; // Deselect the button if already selected
-        _isSweepMode=false;
+        _isSweepMode = false;
         print("sweep not selected");
       } else {
         _sweepIndex = index; // Select the pressed button
-        _isSweepMode=true;
-        _vacuumIndex=-1;
-        _isVacuumMode=false;
+        _isSweepMode = true;
+        _vacuumIndex = -1;
+        _isVacuumMode = false;
         print("sweep selected");
       }
     });
   }
+
+  // Handle the tilt button press
   void _handletiltPress(int index) {
     setState(() {
       if (_TiltIndex == index) {
         _TiltIndex = -1;
-        _isTiltMode = false; // Turn off tilt mode if already selected
+        _isTiltMode = false; // Turn off tilt mode
+        _accelerometerSubscription?.cancel();
+        _accelerometerSubscription = null;
+        _tiltDirection = 'stop';
+        _isMovementInProgress = false;
       } else {
         _TiltIndex = index;
         _isTiltMode = true; // Turn on tilt mode
         _AutoIndex = -1; // Disable Automatic if Tilt is selected
         _isAutomaticMode = false; // Disable automatic mode
+        _startListeningToAccelerometer();
       }
     });
   }
+
   // Handle the automatic control button press
   void _handleAutoPress(int index) {
     setState(() {
@@ -92,11 +107,15 @@ class _ControlsPageState extends State<ControlsPage> {
         _isAutomaticMode = true;
         _TiltIndex = -1; // Disable Tilt if Automatic is selected
         _isTiltMode = false; // Disable tilt mode when Auto is selected
+        _accelerometerSubscription?.cancel();
+        _accelerometerSubscription = null;
+        _tiltDirection = 'stop';
+        _isMovementInProgress = false;
       }
     });
   }
 
-  // Handle button press and toggle state for Temperature/Automatic
+  // Handle button press and toggle state for Temperature
   void _handleTemperatureAutoPress(int index) {
     setState(() {
       if (_tempIndex == index) {
@@ -111,30 +130,106 @@ class _ControlsPageState extends State<ControlsPage> {
 
   void _fetchTemperature() async {
     // Mock temperature data fetching
-    await Future.delayed(Duration(microseconds:50 ));
+    await Future.delayed(Duration(microseconds: 50));
     setState(() {
       _temperature = "25°C"; // Example temperature value
     });
+  }
+
+  // Start listening to accelerometer events
+  void _startListeningToAccelerometer() {
+    _accelerometerSubscription = accelerometerEvents.listen((AccelerometerEvent event) {
+      _handleAccelerometerEvent(event);
+    });
+  }
+
+  // Handle accelerometer event data
+  void _handleAccelerometerEvent(AccelerometerEvent event) {
+    if (_isMovementInProgress) {
+      return; // Ignore sensor events if movement is in progress
+    }
+
+    double threshold = 5.0; // Adjust the threshold as needed
+
+    String newDirection = 'stop';
+
+    // Determine the tilt direction based on accelerometer readings
+    if (event.x > threshold) {
+      // Device tilted left
+      newDirection = 'left';
+    } else if (event.x < -threshold) {
+      // Device tilted right
+      newDirection = 'right';
+    } else if (event.y > threshold) {
+      // Device tilted backward
+      newDirection = 'backward';
+    } else if (event.y < -threshold) {
+      // Device tilted forward
+      newDirection = 'forward';
+    } else {
+      return; // No significant tilt detected
+    }
+
+    // Initiate movement
+    _tiltDirection = newDirection;
+    _isMovementInProgress = true;
+    setState(() {
+      // Update UI
+    });
+
+    _sendMoveCommand(newDirection);
+
+    // Start a timer for 2 seconds to hold the movement
+    Timer(Duration(seconds: 1), () {
+      // After 2 seconds, stop the movement
+      _sendMoveCommand('stop');
+      _isMovementInProgress = false;
+      _tiltDirection = 'stop';
+      setState(() {
+        // Update UI
+      });
+    });
+  }
+
+  // Send movement command to the robot
+  void _sendMoveCommand(String direction) {
+    // Implement the logic to send movement commands to your robot
+    print('Sending command: $direction');
+    // For example, send the command via Bluetooth or HTTP
+  }
+
+  @override
+  void dispose() {
+    _accelerometerSubscription?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background_color,
-      appBar: AppBarChooser(appBarType: 'CustomAppBar2', title: //'Controls'
-      AppLocalizations.of(context)!.controls,onBackPressed: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Connected()),
-        );
-      },
+      appBar: AppBarChooser(
+        appBarType: 'CustomAppBar2',
+        title: AppLocalizations.of(context)!.controls,
+        onBackPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Connected()),
+          );
+        },
       ),
       body: Stack(
         children: [
           Column(
             children: [
               SizedBox(height: Responsive.customHeight(context, 0.1)), // Directional Buttons
-              DirectionControls(isDisabled: _isAutomaticMode||_isTiltMode), // Pass the automatic mode state
+
+              // Pass the tilt direction to DirectionControls
+              DirectionControls(
+                isDisabled: _isAutomaticMode,
+                highlightedDirection: _isTiltMode ? _tiltDirection : 'stop',
+              ),
+
               Spacer(),
               // Container that will extend under footer
               if (_temperature != null)
@@ -142,12 +237,7 @@ class _ControlsPageState extends State<ControlsPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "${AppLocalizations.of(context)!.currenttemp} $_temperature",
-                     style: AppStyles.mediumStyle
-                     //const TextStyle(
-                    //   color: Colors.black,
-                    //   fontSize: 18,
-                    //   fontWeight: FontWeight.bold,
-                    // ),
+                    style: AppStyles.mediumStyle,
                   ),
                 ),
 
@@ -170,21 +260,17 @@ class _ControlsPageState extends State<ControlsPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/vacuum.png',
-                                onPressed: _isSweepMode ? null : () => _handleVacuumPress(0), // Disable if vacuum is active
-                                backgroundColor: _vacuumIndex == 0 ? AppColors.green_color : (_isSweepMode ? Colors.grey : AppColors.primaryColor),
+                                onPressed: _isSweepMode ? null : () => _handleVacuumPress(0),
+                                backgroundColor: _vacuumIndex == 0
+                                    ? AppColors.green_color
+                                    : (_isSweepMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.25),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
-                             // 'Vacuum',
                               AppLocalizations.of(context)!.vacuum,
-                                style: AppStyles.mediumStyle
-                              // style: TextStyle(
-                              //   color: Colors.black,
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                              style: AppStyles.mediumStyle,
                             ),
                           ],
                         ),
@@ -194,21 +280,17 @@ class _ControlsPageState extends State<ControlsPage> {
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/sweep.png',
-                                onPressed: _isVacuumMode ? null : () => _handleSweepPress(0), // Disable if vacuum is active
-                                backgroundColor: _sweepIndex == 0 ? AppColors.green_color : (_isVacuumMode ? Colors.grey : AppColors.primaryColor),
+                                onPressed: _isVacuumMode ? null : () => _handleSweepPress(0),
+                                backgroundColor: _sweepIndex == 0
+                                    ? AppColors.green_color
+                                    : (_isVacuumMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.25),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
-                             // 'Sweep',
                               AppLocalizations.of(context)!.sweep,
-                                style: AppStyles.mediumStyle
-                              // style: TextStyle(
-                              //   color: Colors.black,
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                              style: AppStyles.mediumStyle,
                             ),
                           ],
                         ),
@@ -225,14 +307,8 @@ class _ControlsPageState extends State<ControlsPage> {
                               ),
                             ),
                             Text(
-                             // 'Temperature',
                               AppLocalizations.of(context)!.temperature,
-                                style: AppStyles.mediumStyle
-                              // style: TextStyle(
-                              //   color: Colors.black,
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                              style: AppStyles.mediumStyle,
                             ),
                           ],
                         ),
@@ -240,28 +316,23 @@ class _ControlsPageState extends State<ControlsPage> {
                     ),
                     Row(
                       children: [
-
                         Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: CustomButton(
                                 imageUrl: 'assets/images/automatic.png',
-                                onPressed: _isTiltMode ? null : () => _handleAutoPress(0), // Disable if vacuum is active
-                                backgroundColor: _AutoIndex == 0 ? AppColors.green_color : (_isTiltMode ? Colors.grey : AppColors.primaryColor),
+                                onPressed: _isTiltMode ? null : () => _handleAutoPress(0),
+                                backgroundColor: _AutoIndex == 0
+                                    ? AppColors.green_color
+                                    : (_isTiltMode ? Colors.grey : AppColors.primaryColor),
                                 width: Responsive.customWidth(context, 0.40),
                                 height: Responsive.customHeight(context, 0.08),
                               ),
                             ),
                             Text(
-                              //'Automatic control',
                               AppLocalizations.of(context)!.automaticcontrol,
-                                style: AppStyles.mediumStyle
-                              // style: TextStyle(
-                              //   color: Colors.black,
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                              style: AppStyles.mediumStyle,
                             ),
                           ],
                         ),
@@ -270,23 +341,19 @@ class _ControlsPageState extends State<ControlsPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                                child: CustomButton(
-                                  imageUrl: 'assets/images/tilt.png',
-                                  onPressed: _isAutomaticMode ? null : () => _handletiltPress(0), // Disable if vacuum is active
-                                  backgroundColor: _TiltIndex == 0 ? AppColors.green_color : (_isAutomaticMode ? Colors.grey : AppColors.primaryColor),
-                                  width: Responsive.customWidth(context, 0.4),
-                                  height: Responsive.customHeight(context, 0.08),
-                                ),
+                              child: CustomButton(
+                                imageUrl: 'assets/images/tilt.png',
+                                onPressed: _isAutomaticMode ? null : () => _handletiltPress(0),
+                                backgroundColor: _TiltIndex == 0
+                                    ? AppColors.green_color
+                                    : (_isAutomaticMode ? Colors.grey : AppColors.primaryColor),
+                                width: Responsive.customWidth(context, 0.4),
+                                height: Responsive.customHeight(context, 0.08),
                               ),
+                            ),
                             Text(
-                              //'Automatic control',
-                                AppLocalizations.of(context)!.tilt,
-                                style: AppStyles.mediumStyle
-                              // style: TextStyle(
-                              //   color: Colors.black,
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                              AppLocalizations.of(context)!.tilt,
+                              style: AppStyles.mediumStyle,
                             ),
                           ],
                         ),
@@ -313,5 +380,3 @@ class _ControlsPageState extends State<ControlsPage> {
     );
   }
 }
-
-
