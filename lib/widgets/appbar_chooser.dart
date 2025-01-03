@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/shared/color.dart';
 
+import '../shared/style.dart';
+
 class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Icon? leftIcon; // Nullable left icon
@@ -61,11 +63,12 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         title: Text(
           title,
-          style: const TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
+            style: AppStyles.titlesStyle
+          // style: const TextStyle(
+          //   color: AppColors.whiteColor,
+          //   fontSize: 32,
+          //   fontWeight: FontWeight.bold,
+          // ),
         ),
         elevation: 4,
         backgroundColor: AppColors.primaryColor,

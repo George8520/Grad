@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/responsive.dart';
+import 'package:signup1/shared/style.dart';
 
 class RoundedHeader extends StatelessWidget {
   final String greeting;
@@ -25,8 +26,8 @@ class RoundedHeader extends StatelessWidget {
     required this.subtitle,
     this.backgroundColor = Colors.blue,
     this.icon = Icons.star_border,
-    this.greetingStyle = const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-    this.subtitleStyle = const TextStyle(color: Colors.white, fontSize: 20),
+     this.greetingStyle =AppStyles.greetingStyle, //const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+    this.subtitleStyle = AppStyles.subtitleStyle,//const TextStyle(color: Colors.white, fontSize: 20),
     this.baseHeight = 160, // Base height for when no images are present
     required this.onPressed,
     this.image,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signup1/screens/connected.dart';
-import 'package:signup1/screens/welcome.dart';
+import 'package:signup1/shared/style.dart';
 import 'package:signup1/shared/color.dart';
 import 'package:signup1/shared/responsive.dart';
 import 'package:signup1/widgets/appbar_chooser.dart';
@@ -24,9 +24,12 @@ class ControlsPage extends StatefulWidget {
 class _ControlsPageState extends State<ControlsPage> {
   // Variable to track the toggled button
   bool _isAutomaticMode = false; // Track if automatic mode is enabled
+  bool _isTiltMode = false; // Track if automatic mode is enabled
   int _vacuumSweepIndex = -1; // -1 means no button is toggled for vacuum/sweep
+  int _tiltautoIndex = -1; // -1 means no button is toggled for vacuum/sweep
   int _tempIndex = -1; // -1 means no button is toggled for temperature/auto
-  int _AutoIndex = -1; // -1 means no button is toggled for auto
+  // int _AutoIndex = -1; // -1 means no button is toggled for auto
+  // int _TiltIndex = -1; // -1 means no button is toggled for auto
   String? _temperature; // Holds the temperature value
 
   // Handle button press and toggle state for Vacuum/Sweep
@@ -39,19 +42,41 @@ class _ControlsPageState extends State<ControlsPage> {
       }
     });
   }
-
-  // Handle the automatic control button press
-  void _handleautoPress(int index) {
+  void _handletiltautoPress(int index) {
     setState(() {
-      if (_AutoIndex == index) {
-        _AutoIndex = -1;
-        _isAutomaticMode = false; // Turn off automatic mode if already selected
+      if (_tiltautoIndex == index) {
+        _tiltautoIndex = -1; // Deselect the button if already selected
+        _isAutomaticMode = false;
+
       } else {
-        _AutoIndex = index;
-        _isAutomaticMode = true; // Turn on automatic mode
+        _tiltautoIndex = index; // Select the pressed button
+        _isAutomaticMode = true;
       }
     });
   }
+  // void _handletiltPress(int index) {
+  //   setState(() {
+  //     if (_TiltIndex == index) {
+  //       _TiltIndex = -1;
+  //       _isTiltMode = false; // Turn off automatic mode if already selected
+  //     } else {
+  //       _TiltIndex = index;
+  //       _isTiltMode = true; // Turn on automatic mode
+  //     }
+  //   });
+  // }
+  // Handle the automatic control button press
+  // void _handleautoPress(int index) {
+  //   setState(() {
+  //     if (_AutoIndex == index) {
+  //       _AutoIndex = -1;
+  //       _isAutomaticMode = false; // Turn off automatic mode if already selected
+  //     } else {
+  //       _AutoIndex = index;
+  //       _isAutomaticMode = true; // Turn on automatic mode
+  //     }
+  //   });
+  // }
 
   // Handle button press and toggle state for Temperature/Automatic
   void _handleTemperatureAutoPress(int index) {
@@ -99,11 +124,12 @@ class _ControlsPageState extends State<ControlsPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "${AppLocalizations.of(context)!.currenttemp} $_temperature",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                     style: AppStyles.mediumStyle
+                     //const TextStyle(
+                    //   color: Colors.black,
+                    //   fontSize: 18,
+                    //   fontWeight: FontWeight.bold,
+                    // ),
                   ),
                 ),
 
@@ -135,11 +161,12 @@ class _ControlsPageState extends State<ControlsPage> {
                             Text(
                              // 'Vacuum',
                               AppLocalizations.of(context)!.vacuum,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                style: AppStyles.mediumStyle
+                              // style: TextStyle(
+                              //   color: Colors.black,
+                              //   fontSize: 20,
+                              //   fontWeight: FontWeight.bold,
+                              // ),
                             ),
                           ],
                         ),
@@ -158,11 +185,12 @@ class _ControlsPageState extends State<ControlsPage> {
                             Text(
                              // 'Sweep',
                               AppLocalizations.of(context)!.sweep,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                style: AppStyles.mediumStyle
+                              // style: TextStyle(
+                              //   color: Colors.black,
+                              //   fontSize: 20,
+                              //   fontWeight: FontWeight.bold,
+                              // ),
                             ),
                           ],
                         ),
@@ -181,34 +209,70 @@ class _ControlsPageState extends State<ControlsPage> {
                             Text(
                              // 'Temperature',
                               AppLocalizations.of(context)!.temperature,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                style: AppStyles.mediumStyle
+                              // style: TextStyle(
+                              //   color: Colors.black,
+                              //   fontSize: 20,
+                              //   fontWeight: FontWeight.bold,
+                              // ),
                             ),
                           ],
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: CustomButton(
-                        imageUrl: 'assets/images/automatic.png',
-                        onPressed: () => _handleautoPress(3),
-                        backgroundColor: _AutoIndex == 3 ? AppColors.green_color : AppColors.primaryColor,
-                        width: Responsive.customWidth(context, 0.8),
-                        height: Responsive.customHeight(context, 0.08),
-                      ),
-                    ),
-                    Text(
-                      //'Automatic control',
-                      AppLocalizations.of(context)!.automaticcontrol,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: CustomButton(
+                                imageUrl: 'assets/images/automatic.png',
+                                onPressed: () => _handletiltautoPress(0),
+                                backgroundColor: _tiltautoIndex == 0 ? AppColors.green_color : AppColors.primaryColor,
+                                width: Responsive.customWidth(context, 0.40),
+                                height: Responsive.customHeight(context, 0.08),
+                              ),
+                            ),
+                            Text(
+                              //'Automatic control',
+                              AppLocalizations.of(context)!.automaticcontrol,
+                                style: AppStyles.mediumStyle
+                              // style: TextStyle(
+                              //   color: Colors.black,
+                              //   fontSize: 20,
+                              //   fontWeight: FontWeight.bold,
+                              // ),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: CustomButton(
+                                imageUrl: 'assets/images/tilt.png',
+                                onPressed: () => _handletiltautoPress(1),
+                                backgroundColor: _tiltautoIndex == 1 ? AppColors.green_color : AppColors.primaryColor,
+                                width: Responsive.customWidth(context, 0.4),
+                                height: Responsive.customHeight(context, 0.08),
+                              ),
+                            ),
+                            Text(
+                              //'Automatic control',
+                                AppLocalizations.of(context)!.tilt,
+                                style: AppStyles.mediumStyle
+                              // style: TextStyle(
+                              //   color: Colors.black,
+                              //   fontSize: 20,
+                              //   fontWeight: FontWeight.bold,
+                              // ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),

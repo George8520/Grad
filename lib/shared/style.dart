@@ -13,15 +13,27 @@ class AppStyles{
       fontWeight: FontWeight.bold,
       color: AppColors.whiteColor
   );
+  static const greetingStyle = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Lato',
+    fontWeight: FontWeight.bold,
+    color: AppColors.whiteColor,
+  );
+  static const subtitleStyle = TextStyle(
+    fontSize: 20,
+    fontFamily: 'Lato',
+    fontWeight: FontWeight.w500,
+    color: AppColors.whiteColor,
+  );
   static const mediumStyle = TextStyle(
       fontSize: 20,
       fontFamily: 'Lato',
       fontWeight: FontWeight.w500,
-      color: AppColors.dark_grey_Color
+      color: AppColors.blackColor,
   );
   static const smallStyle = TextStyle(
       fontSize: 16,
       fontFamily: 'Lato',
-      color: AppColors.light_grey_Color
+      color: AppColors.blackColor
   );
 }

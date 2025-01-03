@@ -56,7 +56,7 @@
   "temperature": "درجة الحرارة",
   "vacuum": "المكنسة",
   "sweep": "المسح",
-  "automaticcontrol": "التحكم التلقائي",
+  "automaticcontrol": "التحكم الالي",
   "controls": "التحكمات",
   "about": "حول",
   "settings": "الإعدادات",
@@ -78,7 +78,8 @@
   "currenttemp": "درجة الحرارة الحالية: ",
   "on": "تشغيل",
   "off": "إيقاف",
-  "robotstate": "الحالة الحالية للروبوت:   "
+  "robotstate": "الحالة الحالية للروبوت:   ",
+  "tilt": "إمالة"
 
 }
 
