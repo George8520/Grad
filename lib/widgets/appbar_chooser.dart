@@ -99,6 +99,37 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+class CustomAppBar3 extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  const CustomAppBar3({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      child: AppBar(
+        automaticallyImplyLeading: false, // This removes the default back icon
+        title: Text(
+            title,
+            style: AppStyles.titlesStyle
+          // style: const TextStyle(
+          //   color: AppColors.whiteColor,
+          //   fontSize: 32,
+          //   fontWeight: FontWeight.bold,
+          // ),
+        ),
+        elevation: 4,
+        backgroundColor: AppColors.primaryColor,
+        centerTitle: true,
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
 
 class CustomAppBarColor extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
@@ -158,6 +189,13 @@ class AppBarChooser extends StatelessWidget implements PreferredSizeWidget {
         onRightIconPressed: onRightIconPressed,
         onBackPressed: onBackPressed, // Custom back navigation if provided
       );
+
+    }
+    else if (appBarType == 'CustomAppBar3') {
+      return CustomAppBar3(
+        title: title,
+      );
+
     } else if (appBarType == 'CustomAppBarColor') {
       return CustomAppBarColor(
         backgroundColor: appBarColor ?? AppColors.primaryColor, // Use passed color or default to primaryColor

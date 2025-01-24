@@ -101,24 +101,24 @@ class _HelpchatState extends State<Helpchat> {
           ),
         ),
       ),
-      bottomNavigationBar: FooterWidget(
-        onHomePressed: () {
-          setState(() {
-            selectedIndex = 1;
-          });
-        },
-        onSearchPressed: () {
-          setState(() {
-            selectedIndex = 0;
-          });
-        },
-        onSettingsPressed: () {
-          setState(() {
-            selectedIndex = 2;
-          });
-        },
-        selectedIndex: selectedIndex, // Highlight based on the current index
-      ),
+      // bottomNavigationBar: FooterWidget(
+      //   onHomePressed: () {
+      //     setState(() {
+      //       selectedIndex = 1;
+      //     });
+      //   },
+      //   onSearchPressed: () {
+      //     setState(() {
+      //       selectedIndex = 0;
+      //     });
+      //   },
+      //   onSettingsPressed: () {
+      //     setState(() {
+      //       selectedIndex = 2;
+      //     });
+      //   },
+      //   selectedIndex: selectedIndex, // Highlight based on the current index
+      // ),
     );
   }
 }

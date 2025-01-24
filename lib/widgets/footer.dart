@@ -18,7 +18,7 @@ class FooterWidget extends StatelessWidget {
     required this.onSearchPressed,
     required this.onSettingsPressed,
     required this.selectedIndex,
-    this.height  // Default footer height
+    this.height, // Default footer height
   }) : super(key: key);
 
   @override
@@ -50,21 +50,18 @@ class FooterWidget extends StatelessWidget {
                   isSelected: selectedIndex == 0,
                   onPressed: onSearchPressed,
                   context: context,
-                  destinationPage: ControlsPage(), // Change to desired page
                 ),
                 _buildIcon(
                   icon: Icons.home,
                   isSelected: selectedIndex == 1,
                   onPressed: onHomePressed,
                   context: context,
-                  destinationPage: Connected(), // Change to desired page
                 ),
                 _buildIcon(
                   icon: Icons.settings,
                   isSelected: selectedIndex == 2,
                   onPressed: onSettingsPressed,
                   context: context,
-                  destinationPage: Settings_screen(), // Change to desired page
                 ),
               ],
             ),
@@ -79,7 +76,6 @@ class FooterWidget extends StatelessWidget {
     required bool isSelected,
     required VoidCallback onPressed,
     required BuildContext context,
-    required Widget destinationPage, // Destination page to navigate to
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -90,12 +86,7 @@ class FooterWidget extends StatelessWidget {
             color: isSelected ? AppColors.primaryColor : Colors.black,
             size: 45,
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => destinationPage),
-            );
-          },
+          onPressed: onPressed, // Use the provided onPressed callback
         ),
         if (isSelected)
           Container(

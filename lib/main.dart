@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for SystemChrome
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:signup1/screens/about.dart';
 import 'package:signup1/screens/connected.dart';
@@ -24,21 +25,27 @@ import 'cubits/control_cubit.dart'; // Import your ControlCubit class
 import 'l10n/locale_provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        // Existing LocaleProvider
-        ChangeNotifierProvider(
-          create: (_) => LocaleProvider(),
-        ),
-        // Provide ControlCubit
-        BlocProvider<ControlCubit>(
-          create: (_) => ControlCubit(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
+  SystemChrome.setPreferredOrientations([ // Lock orientation to portrait mode
+    DeviceOrientation.portraitUp, // Only allow portrait mode
+    DeviceOrientation.portraitDown, // Optional: Allow upside-down portrait mode
+  ]).then((_) {
+    runApp(
+      MultiProvider(
+        providers: [
+          // Existing LocaleProvider
+          ChangeNotifierProvider(
+            create: (_) => LocaleProvider(),
+          ),
+          // Provide ControlCubit
+          BlocProvider<ControlCubit>(
+            create: (_) => ControlCubit(),
+          ),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -70,7 +77,7 @@ class MyApp extends StatelessWidget {
         '/about': (context) => About(),
         '/settings': (context) => Settings_screen(),
         '/start_connection': (context) => Start_connection(),
-      //  Add other routes as needed
+        // Add other routes as needed
       },
       // You can set home or use initialRoute
       // home: SplashScreen(), // Not needed if using initialRoute

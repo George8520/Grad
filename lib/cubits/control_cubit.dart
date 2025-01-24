@@ -68,15 +68,6 @@ class ControlCubit extends Cubit<ControlState> {
   ControlCubit() : super(ControlState());
 
   // Add a method to fetch temperature
-
-
-
-
-
-
-
-
-
   void toggleVacuumMode() {
     if (state.isSweepMode) {
       // Cannot enable vacuum if sweep mode is active

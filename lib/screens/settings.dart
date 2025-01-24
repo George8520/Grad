@@ -97,17 +97,17 @@ class _Settings_screenState extends State<Settings_screen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.background_color,
-        appBar:  AppBarChooser(
-          appBarType: 'CustomAppBar2',
-          // title: 'Settings',
-          title: AppLocalizations.of(context)!.settings, // Localized title
-          onBackPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Connected()),
-            );
-          },
-        ),
+        // appBar:  AppBarChooser(
+        //   appBarType: 'CustomAppBar2',
+        //   // title: 'Settings',
+        //   title: AppLocalizations.of(context)!.settings, // Localized title
+        //   onBackPressed: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => Connected()),
+        //     );
+        //   },
+        // ),
         body: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Container(
@@ -164,6 +164,16 @@ class _Settings_screenState extends State<Settings_screen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomButton(
+                      // text: 'Log out',
+                      text: AppLocalizations.of(context)!.editusername, // Localized text
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
                       // text: 'Help',
                       text: AppLocalizations.of(context)!.help, // Localized text
                       onPressed: () {
@@ -190,6 +200,7 @@ class _Settings_screenState extends State<Settings_screen> {
                     ),
                   ],
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -200,6 +211,7 @@ class _Settings_screenState extends State<Settings_screen> {
                     ),
                   ],
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -215,24 +227,24 @@ class _Settings_screenState extends State<Settings_screen> {
             ),
           ),
         ),
-        bottomNavigationBar: FooterWidget(
-          onHomePressed: () {
-            setState(() {
-              selectedIndex = 1;
-            });
-          },
-          onSearchPressed: () {
-            setState(() {
-              selectedIndex = 0;
-            });
-          },
-          onSettingsPressed: () {
-            setState(() {
-              selectedIndex = 2;
-            });
-          },
-          selectedIndex: selectedIndex,
-        ),
+        // bottomNavigationBar: FooterWidget(
+        //   onHomePressed: () {
+        //     setState(() {
+        //       selectedIndex = 1;
+        //     });
+        //   },
+        //   onSearchPressed: () {
+        //     setState(() {
+        //       selectedIndex = 0;
+        //     });
+        //   },
+        //   onSettingsPressed: () {
+        //     setState(() {
+        //       selectedIndex = 2;
+        //     });
+        //   },
+        //   selectedIndex: selectedIndex,
+        // ),
       ),
     );
   }

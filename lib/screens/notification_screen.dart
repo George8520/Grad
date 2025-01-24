@@ -123,26 +123,26 @@ class _Notifiaction_ScreenState extends State<Notifiaction_screen> {
           ),
         ),
       ),
-      bottomNavigationBar: widget.hideFooter
-          ? null
-          : FooterWidget(
-        onHomePressed: () {
-          setState(() {
-            selectedIndex = 1;
-          });
-        },
-        onSearchPressed: () {
-          setState(() {
-            selectedIndex = 0;
-          });
-        },
-        onSettingsPressed: () {
-          setState(() {
-            selectedIndex = 2;
-          });
-        },
-        selectedIndex: selectedIndex, // Highlight based on the current index
-      ),
+      // bottomNavigationBar: widget.hideFooter
+      //     ? null
+      //     : FooterWidget(
+      //   onHomePressed: () {
+      //     setState(() {
+      //       selectedIndex = 1;
+      //     });
+      //   },
+      //   onSearchPressed: () {
+      //     setState(() {
+      //       selectedIndex = 0;
+      //     });
+      //   },
+      //   onSettingsPressed: () {
+      //     setState(() {
+      //       selectedIndex = 2;
+      //     });
+      //   },
+      //   selectedIndex: selectedIndex, // Highlight based on the current index
+      // ),
     );
   }
 }
