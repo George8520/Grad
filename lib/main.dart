@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc
 import 'cubits/control_cubit.dart'; // Import your ControlCubit class
 import 'l10n/locale_provider.dart';
-
+//mahmoud
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   SystemChrome.setPreferredOrientations([ // Lock orientation to portrait mode
