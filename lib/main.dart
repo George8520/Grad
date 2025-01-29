@@ -25,6 +25,7 @@ import 'cubits/control_cubit.dart'; // Import your ControlCubit class
 import 'l10n/locale_provider.dart';
 //mahmoud
 ///test m3 george
+///kjgjjdhgdhghghgd
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   SystemChrome.setPreferredOrientations([ // Lock orientation to portrait mode
