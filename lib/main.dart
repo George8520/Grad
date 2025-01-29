@@ -25,7 +25,7 @@ import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc
 import 'cubits/control_cubit.dart'; // Import your ControlCubit class
 import 'l10n/locale_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+//sherry
 void main() async{
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   await Firebase.initializeApp(
