@@ -9,6 +9,7 @@ import '../shared/responsive.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:signup1/services/auth.dart';
 
+//sherryromany33@gmail.com
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
@@ -16,6 +17,7 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
                 CustomTextField(
+                  controller: _usernameController,
                   hintText: AppLocalizations.of(context)!.username,
                   obscureText: false,
                 ),
@@ -111,28 +114,38 @@ class SignUpScreen extends StatelessWidget {
                       String email = _emailController.text.trim();
                       String password = _passwordController.text.trim();
                       String confirmPassword = _confirmPasswordController.text.trim();
+                      String username = _usernameController.text.trim();
 
-                      if (password == confirmPassword) {
-                        try {
-                          await _authService.createUserWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Verification email sent. Please check your inbox.')),
-                          );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => VerificationScreen(fromPage: 'SignUp')),
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Sign-up failed. Please try again.')),
-                          );
-                        }
-                      } else {
+                      if (username.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('All fields are required.')),
+                        );
+                        return;
+                      }
+
+                      if (password != confirmPassword) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Passwords do not match.')),
+                        );
+                        return;
+                      }
+
+                      String? errorMessage = await _authService.createUserWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+
+                      if (errorMessage == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Verification email sent. Check your inbox.')),
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => VerificationScreen(fromPage: 'SignUp')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(errorMessage)),
                         );
                       }
                     },

@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDF0VHFdHqx7prULYUeGqwOZyhyFCyuc7s',
-    appId: '1:232334373922:android:7913a5b8a926967e7a067b',
-    messagingSenderId: '232334373922',
-    projectId: 'test1-28c50',
-    storageBucket: 'test1-28c50.firebasestorage.app',
+    apiKey: 'AIzaSyAxV4DVKhJ4SqnHh8Wb3rk35dFotR2RMV4',
+    appId: '1:1035892861330:android:b150c1e70b84b7b66d794b',
+    messagingSenderId: '1035892861330',
+    projectId: 'vacman-d059c',
+    storageBucket: 'vacman-d059c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBoDtDuTKfJnqtNY9GzJ9digqkmXuHg2YU',
-    appId: '1:232334373922:ios:2e87d85309cfe9567a067b',
-    messagingSenderId: '232334373922',
-    projectId: 'test1-28c50',
-    storageBucket: 'test1-28c50.firebasestorage.app',
+    apiKey: 'AIzaSyCKdQCO9wdJaZgbBsMoctajVlzChb_SLxs',
+    appId: '1:1035892861330:ios:3bc01eeda9e7699a6d794b',
+    messagingSenderId: '1035892861330',
+    projectId: 'vacman-d059c',
+    storageBucket: 'vacman-d059c.firebasestorage.app',
     iosBundleId: 'com.example.signup1',
   );
+
 }
