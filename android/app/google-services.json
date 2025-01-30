@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1035892861330",
+    "project_id": "vacman-d059c",
+    "storage_bucket": "vacman-d059c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035892861330:android:b150c1e70b84b7b66d794b",
+        "android_client_info": {
+          "package_name": "com.example.signup1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxV4DVKhJ4SqnHh8Wb3rk35dFotR2RMV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
